@@ -2,15 +2,20 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HomeScreen from './screens/home';
 import LoginScreen from './screens/auth/login';
+import CartScreen from './screens/cart';
 
 const Stack = createNativeStackNavigator();
 
 const Main = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="login">
+      <Stack.Navigator
+        initialRouteName="home"
+        screenOptions={{ headerShown: false }}
+      >
         <Stack.Group>
           <Stack.Screen name="home" component={HomeScreen} />
+          <Stack.Screen name="cart" component={CartScreen} />
           <Stack.Screen name="login" component={LoginScreen} />
         </Stack.Group>
       </Stack.Navigator>

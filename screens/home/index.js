@@ -1,15 +1,13 @@
-import { useNavigation } from '@react-navigation/native';
-import { View, Text, Button } from 'react-native';
+import { View } from 'react-native';
+import { defaultStyle } from '../../styles';
+import HeaderComponent from '../../components/shared/header';
+import HomeScreenHeader from '../../components/home/HomeScreenHeader';
 
 const HomeScreen = () => {
-  const navigation = useNavigation();
   return (
-    <View>
-      <Text>HomeScreen</Text>
-      <Button
-        title="Go to Login"
-        onPress={() => navigation.navigate('login')}
-      />
+    <View style={defaultStyle}>
+      <HeaderComponent />
+      <HomeScreenHeader />
     </View>
   );
 };
