@@ -1,6 +1,6 @@
 import { View, Text } from 'react-native';
 
-const HomeScreenHeader = () => {
+const HomeScreenHeading = () => {
   return (
     <View>
       <Text style={{ fontSize: 25 }}>Our</Text>
@@ -9,4 +9,4 @@ const HomeScreenHeader = () => {
   );
 };
 
-export default HomeScreenHeader;
+export default HomeScreenHeading;
