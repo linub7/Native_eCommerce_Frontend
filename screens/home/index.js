@@ -3,8 +3,19 @@ import { defaultStyle } from '../../styles';
 import HeaderComponent from '../../components/shared/header';
 import HomeScreenHeading from '../../components/home/heading';
 import CustomHomeSearchBar from '../../components/home/search-bar';
+import HomeScreenCategories from '../../components/home/categories';
+import { useState } from 'react';
 
 const HomeScreen = () => {
+  const [category, setCategory] = useState('');
+  const categoriesArray = [
+    'Nice',
+    'Football',
+    'Mens',
+    'Helicopter',
+    'Volleyball',
+  ];
+
   return (
     <View style={defaultStyle}>
       <HeaderComponent />
@@ -12,6 +23,11 @@ const HomeScreen = () => {
         <HomeScreenHeading />
         <CustomHomeSearchBar />
       </View>
+      <HomeScreenCategories
+        categoriesArray={categoriesArray}
+        setCategory={setCategory}
+        category={category}
+      />
     </View>
   );
 };
