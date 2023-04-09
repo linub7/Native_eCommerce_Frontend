@@ -2,14 +2,21 @@ import { Dimensions, Image, StyleSheet, Text, View } from 'react-native';
 import { colors, defaultStyle } from '../../styles';
 import HeaderComponent from '../../components/shared/header';
 import Carousel from 'react-native-snap-carousel';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
+import ProductDetailsScreenInfo from '../../components/product-details/info';
 
 const SLIDER_WIDTH = Dimensions.get('window').width;
 const ITEM_WIDTH = SLIDER_WIDTH;
 
 const ProductDetailsScreen = ({ route: { params } }) => {
+  const [quantity, setQuantity] = useState(1);
   const carouselRef = useRef();
 
+  const name = 'Bottle';
+  const price = 220;
+  const stock = 10;
+  const description =
+    'llnlanclaclalcna;c,a;ca mcamc;amcacnaa lmlmvlava nlavnlva lnlvalvavlmalvmalvma nvrvruvnvrjrvjnvjrvr lamcmlalcmalcmalcma lvlavlmvalmva lmlvmalmva lmclamclam kimrfrfr vrvmfvf';
   const images = [
     {
       id: 'bottle-lmmcalca',
@@ -28,10 +35,10 @@ const ProductDetailsScreen = ({ route: { params } }) => {
       url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbD_PUwfdtYND0PnoTrWw4URh0YRdmzJ6bchohYpIm1w&s',
     },
   ];
+
   return (
     <View style={[defaultStyle, styles.container]}>
       <HeaderComponent back={true} />
-      <Text>ProductDetailsScreen</Text>
       <Carousel
         layout="stack"
         sliderWidth={SLIDER_WIDTH}
@@ -39,6 +46,14 @@ const ProductDetailsScreen = ({ route: { params } }) => {
         ref={carouselRef}
         data={images}
         renderItem={CarouselItem}
+      />
+      <ProductDetailsScreenInfo
+        description={description}
+        name={name}
+        price={price}
+        quantity={quantity}
+        setQuantity={setQuantity}
+        stock={stock}
       />
     </View>
   );
