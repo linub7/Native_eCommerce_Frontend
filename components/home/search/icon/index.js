@@ -1,12 +1,13 @@
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import React from 'react';
 import { Avatar } from 'react-native-paper';
-import { colors } from '../../../styles';
+import { colors } from '../../../../styles';
 
-const CustomHomeSearchBar = () => {
+const CustomHomeSearchIcon = ({ setActiveSearch }) => {
+  const handleToggleSearchBar = () => setActiveSearch((prev) => !prev);
   return (
     <View>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={handleToggleSearchBar}>
         <Avatar.Icon
           icon={'magnify'}
           size={50}
@@ -25,4 +26,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CustomHomeSearchBar;
+export default CustomHomeSearchIcon;
