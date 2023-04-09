@@ -10,6 +10,7 @@ const HeaderComponent = ({ back = false, emptyCart = false }) => {
   const handleEmptyCart = () => {
     console.log('empty cart');
   };
+
   return (
     <>
       {back && (
@@ -17,6 +18,7 @@ const HeaderComponent = ({ back = false, emptyCart = false }) => {
           styles={{ position: 'absolute', left: 20, top: 40, zIndex: 10 }}
           handlePress={handlePressBack}
           icon={'arrow-left'}
+          routerName={router?.name}
         />
       )}
       <CustomHeaderTouchableOpacity
