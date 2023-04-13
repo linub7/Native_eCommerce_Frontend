@@ -1,13 +1,14 @@
 import { StyleSheet, View } from 'react-native';
 import { defaultStyle } from '../../styles';
 import HeaderComponent from '../../components/shared/header';
-import HomeScreenHeading from '../../components/home/heading';
+
 import HomeScreenCategories from '../../components/home/categories';
 import { useState } from 'react';
 import CustomSearchModal from '../../components/shared/modals/search';
 import CustomHomeSearchIcon from '../../components/home/search/icon';
 import HomeScreenProducts from '../../components/home/products';
 import CustomFooter from '../../components/shared/footer';
+import CommonScreenHeading from '../../components/shared/heading';
 
 const categoriesArray = [
   'Nice',
@@ -84,7 +85,7 @@ const HomeScreen = () => {
       <View style={defaultStyle}>
         <HeaderComponent />
         <View style={styles.headerContainer}>
-          <HomeScreenHeading />
+          <CommonScreenHeading normalText={'Our'} boldText={'Products'} />
           <CustomHomeSearchIcon setActiveSearch={setActiveSearch} />
         </View>
         <HomeScreenCategories

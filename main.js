@@ -7,6 +7,7 @@ import LoginScreen from './screens/auth/login';
 import CartScreen from './screens/cart';
 import ProfileScreen from './screens/profile';
 import ProductDetailsScreen from './screens/product-details';
+import ConfirmOrderScreen from './screens/confirm-order';
 
 const Stack = createNativeStackNavigator();
 
@@ -25,6 +26,7 @@ const Main = () => {
             component={ProductDetailsScreen}
           />
           <Stack.Screen name="cart" component={CartScreen} />
+          <Stack.Screen name="confirm-order" component={ConfirmOrderScreen} />
           <Stack.Screen name="login" component={LoginScreen} />
         </Stack.Group>
       </Stack.Navigator>
