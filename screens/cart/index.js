@@ -8,7 +8,7 @@ import CartScreenSummary from '../../components/cart/summary';
 import CustomTouchableOpacity from '../../components/shared/custom-touchable-opacity';
 import { useNavigation } from '@react-navigation/native';
 
-const cartItems = [
+export const cartItems = [
   {
     name: 'Macbook',
     image:
@@ -54,6 +54,42 @@ const cartItems = [
     price: 299,
     quantity: 4,
   },
+  {
+    name: 'Shoes',
+    image:
+      'https://assets.ajio.com/medias/sys_master/root/20211111/51St/618d0e63f997ddf8f101de9c/-288Wx360H-460991629-clearblack-MODEL.jpg',
+    product: 'lcj-21221voppda',
+    stock: 5,
+    price: 299,
+    quantity: 4,
+  },
+  {
+    name: 'Shoes',
+    image:
+      'https://assets.ajio.com/medias/sys_master/root/20211111/51St/618d0e63f997ddf8f101de9c/-288Wx360H-460991629-clearblack-MODEL.jpg',
+    product: 'lcj-2122dsds1voppda',
+    stock: 5,
+    price: 299,
+    quantity: 4,
+  },
+  {
+    name: 'Shoes',
+    image:
+      'https://assets.ajio.com/medias/sys_master/root/20211111/51St/618d0e63f997ddf8f101de9c/-288Wx360H-460991629-clearblack-MODEL.jpg',
+    product: 'lcj-2122dsddsdsqs1voppda',
+    stock: 5,
+    price: 299,
+    quantity: 4,
+  },
+  {
+    name: 'Shoes',
+    image:
+      'https://assets.ajio.com/medias/sys_master/root/20211111/51St/618d0e63f997ddf8f101de9c/-288Wx360H-460991629-clearblack-MODEL.jpg',
+    product: 'lcj-2122dsddsdsqs1vewewewoppda',
+    stock: 5,
+    price: 299,
+    quantity: 4,
+  },
 ];
 
 const CartScreen = () => {
@@ -71,11 +107,7 @@ const CartScreen = () => {
   return (
     <View style={[defaultStyle, styles.container]}>
       <HeaderComponent back={true} emptyCart={true} />
-      <CommonScreenHeading
-        normalText={'Shopping'}
-        boldText={'Cart'}
-        cart={true}
-      />
+      <CommonScreenHeading normalText={'Shopping'} boldText={'Cart'} />
       <CartScreenLayout
         handleDecrease={handleDecrease}
         handleIncrease={handleIncrease}

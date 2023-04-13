@@ -85,7 +85,11 @@ const HomeScreen = () => {
       <View style={defaultStyle}>
         <HeaderComponent />
         <View style={styles.headerContainer}>
-          <CommonScreenHeading normalText={'Our'} boldText={'Products'} />
+          <CommonScreenHeading
+            normalText={'Our'}
+            boldText={'Products'}
+            home={true}
+          />
           <CustomHomeSearchIcon setActiveSearch={setActiveSearch} />
         </View>
         <HomeScreenCategories

@@ -1,8 +1,8 @@
 import { View, Text, StyleSheet } from 'react-native';
 
-const CommonScreenHeading = ({ normalText, boldText, cart = false }) => {
+const CommonScreenHeading = ({ normalText, boldText, home = false }) => {
   return (
-    <View style={cart ? styles.container : ''}>
+    <View style={!home ? styles.container : ''}>
       <Text style={styles.normalText}>{normalText}</Text>
       <Text style={styles.boldText}>{boldText}</Text>
     </View>
