@@ -1,7 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { colors } from '../../../styles';
-import { Avatar } from 'react-native-paper';
 import FooterCustomTouchableOpacity from './custom-touchable-opacity';
 
 const CustomFooter = ({ activeRoute = 'home' }) => {
