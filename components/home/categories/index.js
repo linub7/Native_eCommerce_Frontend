@@ -1,5 +1,4 @@
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
-import React from 'react';
 import HomeScreenCategoriesButton from './button';
 import { colors } from '../../../styles';
 

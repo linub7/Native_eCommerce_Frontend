@@ -1,5 +1,4 @@
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import React from 'react';
 import { Avatar } from 'react-native-paper';
 import { colors } from '../../../../styles';
 

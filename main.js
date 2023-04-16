@@ -12,6 +12,10 @@ import PaymentScreen from './screens/payment';
 import ForgotPasswordScreen from './screens/auth/forgot-password';
 import RegisterScreen from './screens/auth/register';
 import VerifyScreen from './screens/auth/verify';
+import OrdersScreen from './screens/orders';
+import AdminPanelScreen from './screens/admin-panel';
+import ChangePasswordScreen from './screens/auth/change-password';
+import UpdateProfileScreen from './screens/auth/update-profile';
 
 const Stack = createNativeStackNavigator();
 
@@ -30,6 +34,13 @@ const Main = () => {
             component={ProductDetailsScreen}
           />
           <Stack.Screen name="cart" component={CartScreen} />
+          <Stack.Screen name="orders" component={OrdersScreen} />
+          <Stack.Screen name="admin-panel" component={AdminPanelScreen} />
+          <Stack.Screen
+            name="change-password"
+            component={ChangePasswordScreen}
+          />
+          <Stack.Screen name="update-profile" component={UpdateProfileScreen} />
           <Stack.Screen name="confirm-order" component={ConfirmOrderScreen} />
           <Stack.Screen name="payment" component={PaymentScreen} />
           <Stack.Screen name="login" component={LoginScreen} />

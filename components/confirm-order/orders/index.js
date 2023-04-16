@@ -1,5 +1,4 @@
 import { ScrollView, StyleSheet, View } from 'react-native';
-import React from 'react';
 import { cartItems } from '../../../screens/cart';
 import ConfirmOrderScreenOrderItem from './order-item';
 

@@ -15,6 +15,7 @@ const CustomFooter = ({ activeRoute = 'home' }) => {
         break;
       case 1:
         navigation.navigate('cart');
+        break;
       case 2:
         isAuthenticated
           ? navigation.navigate('profile')
