@@ -1,9 +1,17 @@
+import { useNavigation } from '@react-navigation/native';
 import { StyleSheet, Text, View } from 'react-native';
 
-const CartScreenLayoutCartItemInfos = ({ name, amount }) => {
+const CartScreenLayoutCartItemInfos = ({ name, amount, id }) => {
+  const navigation = useNavigation();
+  const handleNavigateToProductDetails = (id) =>
+    navigation.navigate('product-details', { id });
   return (
     <View style={styles.info}>
-      <Text numberOfLines={1} style={styles.name}>
+      <Text
+        numberOfLines={1}
+        style={styles.name}
+        onPress={() => handleNavigateToProductDetails(id)}
+      >
         {name}
       </Text>
       <Text numberOfLines={1} style={styles.amount}>

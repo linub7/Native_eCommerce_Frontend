@@ -11,6 +11,7 @@ import ConfirmOrderScreen from './screens/confirm-order';
 import PaymentScreen from './screens/payment';
 import ForgotPasswordScreen from './screens/auth/forgot-password';
 import RegisterScreen from './screens/auth/register';
+import VerifyScreen from './screens/auth/verify';
 
 const Stack = createNativeStackNavigator();
 
@@ -37,6 +38,7 @@ const Main = () => {
             name="forgot-password"
             component={ForgotPasswordScreen}
           />
+          <Stack.Screen name="verify" component={VerifyScreen} />
         </Stack.Group>
       </Stack.Navigator>
       <Toast position="top" />

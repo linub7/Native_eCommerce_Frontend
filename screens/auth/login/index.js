@@ -8,6 +8,7 @@ import CommonAuthButton from '../../../components/auth/btn';
 import CommonAuthSeparator from '../../../components/auth/separator';
 import CommonAuthFooterLink from '../../../components/auth/footer-link';
 import CustomFooter from '../../../components/shared/footer';
+import CommonAuthLayout from '../../../components/auth/layout';
 
 const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState('');
@@ -22,12 +23,13 @@ const LoginScreen = ({ navigation }) => {
     <>
       <View style={[defaultStyle, styles.outerContainer]}>
         <CommonAuthHeading heading={'Login'} />
-        <View style={styles.container}>
+        <CommonAuthLayout>
           <CommonAuthInput
             color={colors.color1}
             placeholder={'email'}
             value={email}
             onChangeText={setEmail}
+            keyboardType="email-address"
           />
           <CommonAuthInput
             color={colors.color1}
@@ -52,7 +54,7 @@ const LoginScreen = ({ navigation }) => {
             onPress={handleNavigateToRegister}
             label={'Register'}
           />
-        </View>
+        </CommonAuthLayout>
       </View>
       <CustomFooter activeRoute="profile" />
     </>
@@ -62,14 +64,6 @@ const LoginScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   outerContainer: {
     backgroundColor: colors.color2,
-  },
-  container: {
-    flex: 1,
-    padding: 20,
-    backgroundColor: colors.color3,
-    borderRadius: 10,
-    justifyContent: 'center',
-    elevation: 10,
   },
 });
 

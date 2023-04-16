@@ -18,7 +18,7 @@ const CartScreenLayoutCartItem = ({
   return (
     <View style={styles.container}>
       <CartScreenLayoutCartItemImage imgSrc={imgSrc} index={index} />
-      <CartScreenLayoutCartItemInfos amount={amount} name={name} />
+      <CartScreenLayoutCartItemInfos amount={amount} name={name} id={id} />
       <CartScreenLayoutCartItemActions
         qty={qty}
         handleDecrease={() => handleDecrease(id, qty)}

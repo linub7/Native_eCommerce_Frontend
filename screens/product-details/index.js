@@ -9,6 +9,7 @@ const SLIDER_WIDTH = Dimensions.get('window').width;
 const ITEM_WIDTH = SLIDER_WIDTH;
 
 const ProductDetailsScreen = ({ route: { params } }) => {
+  console.log(params);
   const [quantity, setQuantity] = useState(1);
   const carouselRef = useRef();
 

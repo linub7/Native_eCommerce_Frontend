@@ -7,11 +7,13 @@ const CommonAuthInput = ({
   value,
   onChangeText,
   secureTextEntry = false,
+  keyboardType = 'default',
 }) => {
   return (
     <TextInput
-      //   style={inputStyling}
+      style={inputStyling}
       mode="outlined"
+      keyboardType={keyboardType}
       activeOutlineColor={color}
       placeholder={placeholder}
       value={value}
