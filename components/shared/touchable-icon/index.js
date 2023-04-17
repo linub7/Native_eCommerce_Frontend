@@ -7,10 +7,16 @@ const CommonTouchableIcon = ({
   onPress,
   size,
   icon,
+  iconColor,
 }) => {
   return (
     <TouchableOpacity style={touchStyle} onPress={onPress}>
-      <Avatar.Icon icon={icon} size={size} style={iconStyle} />
+      <Avatar.Icon
+        icon={icon}
+        size={size}
+        style={iconStyle}
+        color={iconColor}
+      />
     </TouchableOpacity>
   );
 };

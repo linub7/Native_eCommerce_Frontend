@@ -59,9 +59,6 @@ const AdminUpdateProductScreen = ({
           </View>
         ) : (
           <AdminUpdateProductScreenComponent
-            navigation={navigation}
-            _id={_id}
-            images={[]}
             name={name}
             setName={setName}
             description={description}

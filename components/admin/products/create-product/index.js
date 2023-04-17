@@ -1,11 +1,12 @@
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
-import { Button } from 'react-native-paper';
-import { colors, inputStyling } from '../../../../styles';
+import { Avatar, Button } from 'react-native-paper';
 import CommonAuthInput from '../../../auth/input';
+import { colors, inputStyling } from '../../../../styles';
+import CommonTouchableIcon from '../../../shared/touchable-icon';
 
 const loading = false;
 
-const AdminUpdateProductScreenComponent = ({
+const AdminCreateProductScreenComponent = ({
   name,
   setName,
   description,
@@ -16,15 +17,28 @@ const AdminUpdateProductScreenComponent = ({
   setStock,
   category,
   handleVisible,
-  handleNavigate,
-  handleUpdateProduct,
+  handleCreateProduct,
+  image,
+  handleNavigateToCamera,
 }) => {
+  console.log(category);
   return (
     <ScrollView style={styles.scroll}>
       <View style={styles.container}>
-        <Button onPress={handleNavigate} textColor={colors.color1}>
-          Manage Images
-        </Button>
+        <View style={styles.imgContainer}>
+          <Avatar.Image
+            size={80}
+            style={styles.img}
+            source={{ uri: image ? image : null }}
+          />
+          <CommonTouchableIcon
+            icon={'camera'}
+            onPress={handleNavigateToCamera}
+            size={30}
+            iconColor={colors.color3}
+            iconStyle={styles.iconStyle}
+          />
+        </View>
         <CommonAuthInput
           color={colors.color1}
           placeholder={'name'}
@@ -52,16 +66,16 @@ const AdminUpdateProductScreenComponent = ({
           keyboardType="number-pad"
         />
         <Text style={[inputStyling, styles.category]} onPress={handleVisible}>
-          {category}
+          {category !== '' ? category : 'Tap to Select a Category'}
         </Text>
         <Button
           textColor={colors.color2}
           style={styles.btn}
-          onPress={handleUpdateProduct}
+          onPress={handleCreateProduct}
           loading={loading}
           disabled={loading}
         >
-          Update Product
+          Create Product
         </Button>
       </View>
     </ScrollView>
@@ -89,6 +103,19 @@ const styles = StyleSheet.create({
     margin: 20,
     padding: 6,
   },
+  imgContainer: {
+    width: 80,
+    height: 80,
+    alignSelf: 'center',
+    marginBottom: 20,
+  },
+  img: { backgroundColor: colors.color1 },
+  iconStyle: {
+    backgroundColor: colors.color2,
+    position: 'absolute',
+    bottom: 0,
+    right: -5,
+  },
 });
 
-export default AdminUpdateProductScreenComponent;
+export default AdminCreateProductScreenComponent;
