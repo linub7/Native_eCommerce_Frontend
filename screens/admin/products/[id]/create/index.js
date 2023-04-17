@@ -1,13 +1,13 @@
 import { StyleSheet, Text, View } from 'react-native';
 
-const AdminUpdateProduct = () => {
+const AdminCreateProductScreen = () => {
   return (
     <View>
-      <Text>AdminUpdateProduct</Text>
+      <Text>AdminCreateProductScreen</Text>
     </View>
   );
 };
 
-export default AdminUpdateProduct;
+export default AdminCreateProductScreen;
 
 const styles = StyleSheet.create({});

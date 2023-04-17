@@ -1,13 +1,18 @@
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import { colors } from '../../../../styles';
-import { Avatar, Button } from 'react-native-paper';
+import { Button } from 'react-native-paper';
+import CommonTouchableIcon from '../../touchable-icon';
 
 const AdminModal = ({ handleCloseModal, handleUpdate, handleDelete }) => {
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.touchStyle} onPress={handleCloseModal}>
-        <Avatar.Icon icon={'close'} size={25} style={styles.closeIcon} />
-      </TouchableOpacity>
+      <CommonTouchableIcon
+        icon={'close'}
+        size={25}
+        touchStyle={styles.touchStyle}
+        iconStyle={styles.closeIcon}
+        onPress={handleCloseModal}
+      />
       <Text style={styles.text} onPress={handleUpdate}>
         Update
       </Text>

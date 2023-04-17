@@ -35,7 +35,7 @@ const AdminPanelScreenActions = () => {
         profile={true}
         reverse={true}
         loading={false}
-        onPress={() => handleNavigate('categories')}
+        onPress={() => handleNavigate('admin-categories')}
       />
     </View>
   );
