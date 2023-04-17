@@ -6,6 +6,7 @@ import CustomLoader from '../../../components/shared/custom-loader';
 import AdminPanelScreenActions from '../../../components/admin/panel/actions';
 import AdminPanelScreenProductListHeading from '../../../components/admin/panel/product-list/heading';
 import AdminPanelScreenProductList from '../../../components/admin/panel/product-list';
+import AdminPanelScreenChart from '../../../components/admin/panel/chart';
 
 const loading = false;
 
@@ -20,7 +21,9 @@ const AdminPanelScreen = () => {
         <CustomLoader size={100} color={colors.color3} />
       ) : (
         <>
-          <View style={styles.a}></View>
+          <View style={styles.chart}>
+            <AdminPanelScreenChart inStock={12} outOfStock={2} />
+          </View>
           <AdminPanelScreenActions />
           <AdminPanelScreenProductListHeading />
           <AdminPanelScreenProductList />
@@ -32,7 +35,7 @@ const AdminPanelScreen = () => {
 
 const styles = StyleSheet.create({
   innerContainer: { paddingTop: 70 },
-  a: {
+  chart: {
     backgroundColor: colors.color3,
     borderRadius: 20,
     alignItems: 'center',

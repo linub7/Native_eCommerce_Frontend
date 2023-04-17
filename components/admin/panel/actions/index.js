@@ -1,8 +1,11 @@
 import { StyleSheet, View } from 'react-native';
 import CustomTouchableOpacity from '../../../shared/custom-touchable-opacity';
 import { colors } from '../../../../styles';
+import { useNavigation } from '@react-navigation/native';
 
 const AdminPanelScreenActions = () => {
+  const navigation = useNavigation();
+  const handleNavigate = (path) => navigation.navigate(path);
   return (
     <View style={styles.container}>
       <CustomTouchableOpacity
@@ -13,7 +16,7 @@ const AdminPanelScreenActions = () => {
         profile={true}
         reverse={true}
         loading={false}
-        onPress={() => {}}
+        onPress={() => handleNavigate('new-product')}
       />
       <CustomTouchableOpacity
         touchStyle={styles.boxStyleSecondary}
@@ -22,7 +25,7 @@ const AdminPanelScreenActions = () => {
         textColor={colors.color2}
         profile={true}
         loading={false}
-        onPress={() => {}}
+        onPress={() => handleNavigate('admin-orders')}
       />
       <CustomTouchableOpacity
         touchStyle={styles.boxStylePrimary}
@@ -32,7 +35,7 @@ const AdminPanelScreenActions = () => {
         profile={true}
         reverse={true}
         loading={false}
-        onPress={() => {}}
+        onPress={() => handleNavigate('categories')}
       />
     </View>
   );
