@@ -13,9 +13,9 @@ import ForgotPasswordScreen from './screens/auth/forgot-password';
 import RegisterScreen from './screens/auth/register';
 import VerifyScreen from './screens/auth/verify';
 import OrdersScreen from './screens/orders';
-import AdminPanelScreen from './screens/admin-panel';
 import ChangePasswordScreen from './screens/auth/change-password';
 import UpdateProfileScreen from './screens/auth/update-profile';
+import AdminPanelScreen from './screens/admin/panel';
 
 const Stack = createNativeStackNavigator();
 

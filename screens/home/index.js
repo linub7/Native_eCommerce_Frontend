@@ -18,7 +18,7 @@ const categoriesArray = [
   'Volleyball',
 ];
 
-const products = [
+export const products = [
   {
     _id: 'bottle-lmmcalca',
     name: 'Bottle',
