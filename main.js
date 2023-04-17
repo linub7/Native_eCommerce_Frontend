@@ -16,6 +16,7 @@ import OrdersScreen from './screens/orders';
 import ChangePasswordScreen from './screens/auth/change-password';
 import UpdateProfileScreen from './screens/auth/update-profile';
 import AdminPanelScreen from './screens/admin/panel';
+import AdminUpdateProduct from './screens/admin/update-product';
 
 const Stack = createNativeStackNavigator();
 
@@ -36,6 +37,7 @@ const Main = () => {
           <Stack.Screen name="cart" component={CartScreen} />
           <Stack.Screen name="orders" component={OrdersScreen} />
           <Stack.Screen name="admin-panel" component={AdminPanelScreen} />
+          <Stack.Screen name="update-product" component={AdminUpdateProduct} />
           <Stack.Screen
             name="change-password"
             component={ChangePasswordScreen}

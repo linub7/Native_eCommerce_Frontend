@@ -24,6 +24,7 @@ export const products = [
     name: 'Bottle',
     price: 20,
     stock: 20,
+    category: 'kklladadada',
     images: [
       {
         url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQeS1J2KHiDCismfBDSncXO-wqLfddfz3VuPwi3nlav&s',
@@ -35,6 +36,7 @@ export const products = [
     name: 'Camera',
     price: 2020,
     stock: 20,
+    category: 'kklladadadacarra',
     images: [
       {
         url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZLN0_NvJuLGMVD_HxY2bQ4XgZEiQ4PeH38w715AYBPg&s',
@@ -46,6 +48,7 @@ export const products = [
     name: 'Health-Cream',
     price: 120,
     stock: 20,
+    category: 'kklladadad121231a',
     images: [
       {
         url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTq8uiBrVAT7UARXvDO9vmbWkLubt1igCNF3v2gvujQ&s',
@@ -57,6 +60,7 @@ export const products = [
     name: 'Watch',
     price: 3000,
     stock: 20,
+    category: 'kklladadada75575',
     images: [
       {
         url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbD_PUwfdtYND0PnoTrWw4URh0YRdmzJ6bchohYpIm1w&s',

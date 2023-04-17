@@ -6,6 +6,7 @@ import CustomLoader from '../../../components/shared/custom-loader';
 import AdminPanelScreenActions from '../../../components/admin/panel/actions';
 import AdminPanelScreenProductListHeading from '../../../components/admin/panel/product-list/heading';
 import AdminPanelScreenProductList from '../../../components/admin/panel/product-list';
+
 const loading = false;
 
 const AdminPanelScreen = () => {
@@ -30,7 +31,7 @@ const AdminPanelScreen = () => {
 };
 
 const styles = StyleSheet.create({
-  innerContainer: { paddingTop: 70, marginBottom: 20 },
+  innerContainer: { paddingTop: 70 },
   a: {
     backgroundColor: colors.color3,
     borderRadius: 20,
