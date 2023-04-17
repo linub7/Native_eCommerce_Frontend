@@ -20,6 +20,7 @@ import AdminUpdateProductScreen from './screens/admin/products/[id]/update';
 import AdminCreateProductScreen from './screens/admin/products/[id]/create';
 import AdminCategoriesScreen from './screens/admin/categories';
 import AdminOrdersScreen from './screens/admin/orders';
+import AdminProductImagesScreen from './screens/admin/products/product-images';
 
 const Stack = createNativeStackNavigator();
 
@@ -36,6 +37,10 @@ const Main = () => {
           <Stack.Screen
             name="product-details"
             component={ProductDetailsScreen}
+          />
+          <Stack.Screen
+            name="product-images"
+            component={AdminProductImagesScreen}
           />
           <Stack.Screen name="cart" component={CartScreen} />
           <Stack.Screen name="orders" component={OrdersScreen} />
