@@ -1,8 +1,9 @@
 import { StyleSheet, Text, View } from 'react-native';
 import { Camera, CameraType } from 'expo-camera';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import CameraScreenActions from '../../components/camera/actions';
 import * as ImagePicker from 'expo-image-picker';
+import OopsComponent from '../../components/shared/oops';
 
 const CameraScreen = ({ navigation, route: { params } }) => {
   const [camera, setCamera] = useState(null);
@@ -43,7 +44,38 @@ const CameraScreen = ({ navigation, route: { params } }) => {
       });
   };
 
-  const handleTapPicture = (params) => {};
+  const handleTapPicture = async () => {
+    const data = await camera.takePictureAsync();
+
+    if (params?.newProduct)
+      return navigation.navigate('new-product', {
+        image: data?.uri,
+      });
+
+    if (params?.updateProduct)
+      return navigation.navigate('product-images', {
+        image: data?.uri,
+      });
+
+    if (params?.updateProfile)
+      return navigation.navigate('profile', {
+        image: data?.uri,
+      });
+  };
+
+  useEffect(() => {
+    handleGetPermission();
+  }, []);
+
+  const handleGetPermission = async () => {
+    const { status } = await Camera.requestCameraPermissionsAsync();
+    setHasPermission(status === 'granted');
+  };
+
+  if (hasPermission === null) return <View />;
+
+  if (hasPermission === false)
+    return <OopsComponent title={'No Access to Camera'} />;
 
   return (
     <View style={styles.container}>
