@@ -1,7 +1,7 @@
 import { View, StyleSheet } from 'react-native';
 import { colors, defaultStyle } from '../../styles';
 import CommonAuthHeading from '../../components/auth/heading';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import ProfileScreenChangeAvatar from '../../components/profile/change-avatar';
 import ProfileScreenUserInfoText from '../../components/profile/user-info-text';
 import ProfileScreenActions from '../../components/profile/actions';
@@ -15,8 +15,13 @@ const user = {
 
 const loading = false;
 
-const ProfileScreen = ({ navigation }) => {
+const ProfileScreen = ({ navigation, route: { params } }) => {
   const [avatar, setAvatar] = useState(null);
+
+  useEffect(() => {
+    if (params?.image) setAvatar(params?.image);
+  }, [params]);
+
   const handleNavigateToCamera = () =>
     navigation.navigate('camera', { updateProfile: true });
   return (

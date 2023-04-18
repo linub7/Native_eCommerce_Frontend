@@ -8,7 +8,7 @@ import { useEffect, useState } from 'react';
 import CustomSelectComponent from '../../../../../components/shared/select';
 
 const loading = false;
-const AdminCreateProductScreen = ({ navigation }) => {
+const AdminCreateProductScreen = ({ navigation, route: { params } }) => {
   const [name, setName] = useState('');
   const [image, setImage] = useState('');
   const [description, setDescription] = useState('');
@@ -27,10 +27,8 @@ const AdminCreateProductScreen = ({ navigation }) => {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    return () => {
-      setCategory('');
-    };
-  }, []);
+    if (params?.image) setImage(params?.image);
+  }, [params]);
 
   const handleVisible = () => setIsVisible(true);
   const handleClose = () => setIsVisible(false);
