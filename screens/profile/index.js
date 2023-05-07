@@ -1,4 +1,8 @@
 import { View, StyleSheet } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
+import Toast from 'react-native-toast-message';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 import { colors, defaultStyle } from '../../styles';
 import CommonAuthHeading from '../../components/auth/heading';
 import { useEffect, useState } from 'react';
@@ -7,20 +11,47 @@ import ProfileScreenUserInfoText from '../../components/profile/user-info-text';
 import ProfileScreenActions from '../../components/profile/actions';
 import CustomFooter from '../../components/shared/footer';
 import CustomLoader from '../../components/shared/custom-loader';
-
-const user = {
-  name: 'Mohammad',
-  email: 'a@gmail.com',
-};
-
-const loading = false;
+import { loadingStatus } from '../../store/slices/loadingSlice';
+import { updateProfileHandler } from '../../api/auth';
+import mime from 'mime';
+import { authenticate } from '../../store/slices/authSlice';
 
 const ProfileScreen = ({ navigation, route: { params } }) => {
   const [avatar, setAvatar] = useState(null);
 
+  const { userData } = useSelector((state) => state.auth);
+  const { loading } = useSelector((state) => state.loading);
+  const { token } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
   useEffect(() => {
-    if (params?.image) setAvatar(params?.image);
+    if (params?.image) {
+      setAvatar(params?.image);
+      handleUpdateProfilePhoto(params?.image);
+    }
   }, [params]);
+
+  const handleUpdateProfilePhoto = async (uri) => {
+    dispatch(loadingStatus({ status: true }));
+    let formData = new FormData();
+    formData.append('photo', {
+      uri,
+      type: mime.getType(uri),
+      name: uri?.split('/').pop(),
+    });
+    const { err, data } = await updateProfileHandler(formData, token);
+    if (err) {
+      console.log(err);
+      dispatch(loadingStatus({ status: false }));
+      return Toast.show({
+        type: 'error',
+        text1: err,
+      });
+    }
+    await AsyncStorage.removeItem('@userData');
+    await AsyncStorage.setItem('@userData', JSON.stringify(data?.data?.data));
+    dispatch(authenticate({ token, userData: data?.data?.data }));
+    dispatch(loadingStatus({ status: false }));
+  };
 
   const handleNavigateToCamera = () =>
     navigation.navigate('camera', { updateProfile: true });
@@ -34,15 +65,15 @@ const ProfileScreen = ({ navigation, route: { params } }) => {
           <>
             <View style={styles.container}>
               <ProfileScreenChangeAvatar
-                avatar={avatar}
+                avatar={userData?.photo?.url ? userData?.photo?.url : avatar}
                 handleNavigateToCamera={handleNavigateToCamera}
               />
               <ProfileScreenUserInfoText
-                label={user?.name}
+                label={userData?.name}
                 styles={styles.name}
               />
               <ProfileScreenUserInfoText
-                label={user?.email}
+                label={userData?.email}
                 styles={styles.email}
               />
             </View>

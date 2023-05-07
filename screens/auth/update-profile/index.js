@@ -1,15 +1,25 @@
 import { ScrollView, StyleSheet, View } from 'react-native';
+import { useEffect, useState } from 'react';
+import Toast from 'react-native-toast-message';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useIsFocused } from '@react-navigation/native';
+
 import CommonAuthHeading from '../../../components/auth/heading';
 import { colors, defaultStyle } from '../../../styles';
-import { useState } from 'react';
 import CommonAuthLayout from '../../../components/auth/layout';
 import CommonAuthInput from '../../../components/auth/input';
 import CommonAuthButton from '../../../components/auth/btn';
 import HeaderComponent from '../../../components/shared/header';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  loadingStatus,
+  localLoadingStatus,
+} from '../../../store/slices/loadingSlice';
+import { getMeHandler, updateProfileHandler } from '../../../api/auth';
+import CustomLoader from '../../../components/shared/custom-loader';
+import { authenticate } from '../../../store/slices/authSlice';
 
-const loading = false;
-
-const UpdateProfileScreen = () => {
+const UpdateProfileScreen = ({ navigation, route: { params } }) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [address, setAddress] = useState('');
@@ -17,10 +27,66 @@ const UpdateProfileScreen = () => {
   const [country, setCountry] = useState('');
   const [pinCode, setPinCode] = useState('');
 
-  const handleUpdateProfile = () => {
-    console.log('Update Profile');
+  const { loading, localLoading } = useSelector((state) => state.loading);
+  const { token } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    handleGetMe();
+  }, []);
+
+  const handleGetMe = async () => {
+    dispatch(localLoadingStatus({ status: true }));
+    const { err, data } = await getMeHandler(token);
+    if (err) {
+      console.log(err);
+      dispatch(localLoadingStatus({ status: false }));
+      Toast.show({
+        type: 'error',
+        text1: err,
+      });
+      setTimeout(() => {
+        navigation.navigate('profile');
+      }, 1000);
+    }
+    dispatch(localLoadingStatus({ status: false }));
+    setName(data?.data?.data?.name);
+    setEmail(data?.data?.data?.email);
+    setAddress(data?.data?.data?.address);
+    setCity(data?.data?.data?.city);
+    setCountry(data?.data?.data?.country);
+    setPinCode(data?.data?.data?.pinCode);
   };
-  return (
+
+  const handleUpdateProfile = async () => {
+    dispatch(loadingStatus({ status: true }));
+
+    let formData = new FormData();
+    formData.append('name', name);
+    formData.append('email', email);
+    formData.append('address', address);
+    formData.append('city', city);
+    formData.append('country', country);
+    formData.append('pinCode', pinCode);
+    const { err, data } = await updateProfileHandler(formData, token);
+    if (err) {
+      console.log(err);
+      dispatch(loadingStatus({ status: false }));
+      return Toast.show({
+        type: 'error',
+        text1: err,
+      });
+    }
+    dispatch(loadingStatus({ status: false }));
+    await AsyncStorage.removeItem('@userData');
+    await AsyncStorage.setItem('@userData', JSON.stringify(data?.data?.data));
+    dispatch(authenticate({ token, userData: data?.data?.data }));
+    Toast.show({ type: 'success', text1: 'Profile updated successfully.' });
+    navigation.navigate('profile');
+  };
+  return localLoading ? (
+    <CustomLoader size={100} color={colors.color3} />
+  ) : (
     <View style={[defaultStyle, styles.outerContainer]}>
       <HeaderComponent back={true} />
       <View style={styles.innerContainer}>

@@ -1,28 +1,66 @@
 import { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import Toast from 'react-native-toast-message';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useDispatch, useSelector } from 'react-redux';
+
 import { colors, defaultStyle } from '../../../styles';
 import HeaderComponent from '../../../components/shared/header';
 import CommonAuthHeading from '../../../components/auth/heading';
 import CommonAuthLayout from '../../../components/auth/layout';
 import CommonAuthInput from '../../../components/auth/input';
 import CommonAuthButton from '../../../components/auth/btn';
+import { updatePasswordHandler } from '../../../api/auth';
+import { authenticate } from '../../../store/slices/authSlice';
+import { loadingStatus } from '../../../store/slices/loadingSlice';
 
-const loading = false;
-
-const ChangePasswordScreen = () => {
+const ChangePasswordScreen = ({ navigation }) => {
   const [oldPassword, setOldPassword] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
-  const handleChangePassword = () => {
+  const { token } = useSelector((state) => state.auth);
+  const { loading } = useSelector((state) => state.loading);
+
+  const dispatch = useDispatch();
+
+  const handleChangePassword = async () => {
     if (password !== confirmPassword)
       return Toast.show({
         type: 'error',
         text1: 'Password mismatch',
       });
 
-    console.log('change Password');
+    dispatch(loadingStatus({ status: true }));
+
+    const { err, data } = await updatePasswordHandler(
+      oldPassword,
+      password,
+      confirmPassword,
+      token
+    );
+
+    if (err) {
+      console.log(err);
+      dispatch(loadingStatus({ status: false }));
+      return Toast.show({
+        type: 'error',
+        text1: err,
+      });
+    }
+
+    await AsyncStorage.setItem('@token', JSON.stringify(data?.token));
+    await AsyncStorage.setItem('@userData', JSON.stringify(data?.data?.user));
+    dispatch(authenticate({ token: data?.token, userData: data?.data?.user }));
+    dispatch(loadingStatus({ status: false }));
+    Toast.show({
+      type: 'success',
+      text1: 'Changed password successfully',
+    });
+
+    setTimeout(() => {
+      navigation.navigate('profile');
+    }, 1500);
   };
   return (
     <>

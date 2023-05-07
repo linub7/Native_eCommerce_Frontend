@@ -1,6 +1,7 @@
-import { StyleSheet, View } from 'react-native';
+import { Button, StyleSheet, View } from 'react-native';
 import { defaultStyle } from '../../styles';
 import HeaderComponent from '../../components/shared/header';
+import { SERVER_URL } from '@env';
 
 import HomeScreenCategories from '../../components/home/categories';
 import { useState } from 'react';
@@ -9,6 +10,11 @@ import CustomHomeSearchIcon from '../../components/home/search/icon';
 import HomeScreenProducts from '../../components/home/products';
 import CustomFooter from '../../components/shared/footer';
 import CommonScreenHeading from '../../components/shared/heading';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  loadingStatus,
+  localLoadingStatus,
+} from '../../store/slices/loadingSlice';
 
 const categoriesArray = [
   'Nice',
@@ -74,7 +80,13 @@ const HomeScreen = () => {
   const [activeSearch, setActiveSearch] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
 
-  const loading = false;
+  const dispatch = useDispatch();
+
+  const { loading } = useSelector((state) => state.loading);
+  const handleResetLoading = () => {
+    dispatch(loadingStatus({ status: false }));
+    dispatch(localLoadingStatus({ status: false }));
+  };
 
   return (
     <>
@@ -88,6 +100,7 @@ const HomeScreen = () => {
       )}
       <View style={defaultStyle}>
         <HeaderComponent />
+
         <View style={styles.headerContainer}>
           <CommonScreenHeading
             normalText={'Our'}
@@ -101,8 +114,11 @@ const HomeScreen = () => {
           setCategory={setCategory}
           category={category}
         />
+
         <HomeScreenProducts products={products} />
       </View>
+      <Button title="Reset Loading" onPress={handleResetLoading} />
+      {/* <CustomFooter activeRoute="home" /> */}
       {loading === false && <CustomFooter activeRoute="home" />}
     </>
   );
