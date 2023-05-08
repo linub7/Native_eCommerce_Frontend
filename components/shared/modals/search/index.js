@@ -9,10 +9,11 @@ import {
   ScrollView,
   BackHandler,
 } from 'react-native';
+import { useIsFocused } from '@react-navigation/native';
 import { colors } from '../../../../styles';
 import { Searchbar } from 'react-native-paper';
 import CustomSearchItem from '../../../home/search/item';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 const CustomSearchModal = ({
   searchTerm = '',
@@ -21,11 +22,25 @@ const CustomSearchModal = ({
   products = [],
 }) => {
   const navigation = useNavigation();
+  const isFocused = useIsFocused();
+  const [filteredProducts, setFilteredProducts] = useState([]);
+
+  useEffect(() => {
+    if (isFocused) {
+      setFilteredProducts([]);
+      setSearchTerm('');
+    }
+    // return () => {
+    //   setFilteredProducts([]);
+    //   setSearchTerm('');
+    // };
+  }, [isFocused]);
 
   const handleBackAction = () => {
     setSearchTerm('');
     setActiveSearch(false);
-    return true; // only back to home -> without return true with back button app will clos
+    setFilteredProducts([]);
+    return true; // only back to home -> without return true with back button app will close
   };
 
   useEffect(() => {
@@ -36,10 +51,23 @@ const CustomSearchModal = ({
     };
   }, []);
 
-  const handleClearIconPress = () => setSearchTerm('');
-  const handleChangeInput = (term) => setSearchTerm(term);
+  const handleClearIconPress = () => {
+    setSearchTerm('');
+    setFilteredProducts([]);
+  };
+
+  const handleChangeInput = (term) => {
+    setSearchTerm(term);
+    const searchedProducts = products.filter((prod) =>
+      prod?.name.includes(searchTerm)
+    );
+    setFilteredProducts(searchedProducts);
+  };
+
   const handleToSearchResult = (path) =>
     navigation.navigate('product-details', { id: path });
+
+  const items = filteredProducts?.length > 0 ? filteredProducts : products;
 
   return (
     <View style={styles.container}>
@@ -53,10 +81,10 @@ const CustomSearchModal = ({
         />
         <ScrollView>
           <View style={styles.resultContainer}>
-            {products?.map((prod, i) => (
+            {items?.map((prod, i) => (
               <CustomSearchItem
                 key={i}
-                imgSrc={prod?.images[0]?.url}
+                imgSrc={prod?.photos[0]?.url}
                 name={prod?.name}
                 price={prod?.price}
                 onHandle={() => handleToSearchResult(prod?._id)}

@@ -11,7 +11,7 @@ const HomeScreenProducts = ({ products }) => {
           <HomeScreenProductCard
             name={prod?.name}
             _id={prod?._id}
-            image={prod?.images[0]?.url}
+            image={prod?.photos[0]?.url}
             price={prod?.price}
             stock={prod?.stock}
             index={index}

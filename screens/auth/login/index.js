@@ -44,6 +44,7 @@ const LoginScreen = ({ navigation }) => {
       type: 'success',
       text1: 'Profile Photo updated successfully',
     });
+    navigation.navigate('home');
   };
   const handleNavigateToRegister = () => navigation.navigate('register');
 

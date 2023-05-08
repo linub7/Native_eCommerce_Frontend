@@ -1,43 +1,58 @@
 import { Dimensions, Image, StyleSheet, Text, View } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
+import Carousel from 'react-native-snap-carousel';
+import { useEffect, useRef, useState } from 'react';
+import Toast from 'react-native-toast-message';
+
 import { colors, defaultStyle } from '../../styles';
 import HeaderComponent from '../../components/shared/header';
-import Carousel from 'react-native-snap-carousel';
-import { useRef, useState } from 'react';
 import ProductDetailsScreenInfo from '../../components/product-details/info';
+import { loadingStatus } from '../../store/slices/loadingSlice';
+import { getSingleProductHandler } from '../../api/product';
+import { getProductDetailsAction } from '../../store/slices/productSlice';
+import CustomLoader from '../../components/shared/custom-loader';
 
 const SLIDER_WIDTH = Dimensions.get('window').width;
 const ITEM_WIDTH = SLIDER_WIDTH;
 
 const ProductDetailsScreen = ({ route: { params } }) => {
-  console.log(params);
   const [quantity, setQuantity] = useState(1);
   const carouselRef = useRef();
 
-  const name = 'Bottle';
-  const price = 220;
-  const stock = 10;
-  const description =
-    'llnlanclaclalcna;c,a;ca mcamc;amcacnaa lmlmvlava nlavnlva lnlvalvavlmalvmalvma nvrvruvnvrjrvjnvjrvr lamcmlalcmalcmalcma lvlavlmvalmva lmlvmalmva lmclamclam kimrfrfr vrvmfvf';
-  const images = [
+  const { loading } = useSelector((state) => state.loading);
+  const { product } = useSelector((state) => state.product);
+  console.log('product: ', product);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    handleGetProductDetail();
+  }, [params?.id]);
+
+  const handleGetProductDetail = async () => {
+    dispatch(loadingStatus({ status: true }));
+    const { err, data } = await getSingleProductHandler(params?.id);
+    if (err) {
+      console.log(err);
+      dispatch(loadingStatus({ status: false }));
+      return Toast.show({
+        type: 'error',
+        text1: err,
+      });
+    }
+    dispatch(loadingStatus({ status: false }));
+    dispatch(getProductDetailsAction({ product: data?.data?.data }));
+  };
+
+  const imageUnavailable = [
     {
-      id: 'bottle-lmmcalca',
-      url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQeS1J2KHiDCismfBDSncXO-wqLfddfz3VuPwi3nlav&s',
-    },
-    {
-      id: 'camera-lamclamca',
-      url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZLN0_NvJuLGMVD_HxY2bQ4XgZEiQ4PeH38w715AYBPg&s',
-    },
-    {
-      id: 'cream-kancacaal',
-      url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTq8uiBrVAT7UARXvDO9vmbWkLubt1igCNF3v2gvujQ&s',
-    },
-    {
-      id: 'Watch-jhhhdakdahhdac',
-      url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbD_PUwfdtYND0PnoTrWw4URh0YRdmzJ6bchohYpIm1w&s',
+      id: 'image-unavailable-at-this-time',
+      url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1200px-No-Image-Placeholder.svg.png',
     },
   ];
 
-  return (
+  return loading ? (
+    <CustomLoader size={100} color={colors.color3} />
+  ) : (
     <View style={[defaultStyle, styles.container]}>
       <HeaderComponent back={true} />
       <Carousel
@@ -45,16 +60,16 @@ const ProductDetailsScreen = ({ route: { params } }) => {
         sliderWidth={SLIDER_WIDTH}
         itemWidth={ITEM_WIDTH}
         ref={carouselRef}
-        data={images}
+        data={product?.photos?.length > 0 ? product?.photos : imageUnavailable}
         renderItem={CarouselItem}
       />
       <ProductDetailsScreenInfo
-        description={description}
-        name={name}
-        price={price}
+        description={product?.description}
+        name={product?.name}
+        price={product?.price}
         quantity={quantity}
         setQuantity={setQuantity}
-        stock={stock}
+        stock={product?.stock}
       />
     </View>
   );
