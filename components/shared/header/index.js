@@ -1,15 +1,16 @@
 import { useNavigation, useRoute } from '@react-navigation/native';
 import CustomHeaderTouchableOpacity from './customHeaderTouchableOpacity';
+import { useDispatch } from 'react-redux';
+import { clearCartAction } from '../../../store/slices/cartSlice';
 
 const HeaderComponent = ({ back = false, emptyCart = false }) => {
   const navigation = useNavigation();
   const router = useRoute();
+  const dispatch = useDispatch();
 
   const handlePressBack = () => navigation.goBack();
   const handlePressForward = () => navigation.navigate('cart');
-  const handleEmptyCart = () => {
-    console.log('empty cart');
-  };
+  const handleEmptyCart = () => dispatch(clearCartAction());
 
   return (
     <>

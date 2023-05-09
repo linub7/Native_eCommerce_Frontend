@@ -1,19 +1,26 @@
 import { StyleSheet, View } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { useSelector } from 'react-redux';
+
 import { colors, defaultStyle } from '../../styles';
 import HeaderComponent from '../../components/shared/header';
 import CommonScreenHeading from '../../components/shared/heading';
 import ConfirmOrderScreenOrders from '../../components/confirm-order/orders';
 import ConfirmOrderScreenPriceTag from '../../components/confirm-order/price-tag';
-
 import CustomTouchableOpacity from '../../components/shared/custom-touchable-opacity';
-import { useNavigation } from '@react-navigation/native';
+import { useEffect } from 'react';
 
 const ConfirmOrderScreen = () => {
   const navigation = useNavigation();
+  const { cartItems } = useSelector((state) => state.cart);
 
-  const itemsPrice = 4000;
-  const shippingCharges = 200;
-  const tax = 0.18 * itemsPrice;
+  useEffect(() => {
+    if (cartItems?.length < 1) navigation.navigate('home');
+  }, [cartItems.length]);
+
+  const itemsPrice = cartItems.reduce((a, b) => a + b.price * b.quantity, 0);
+  const shippingCharges = itemsPrice > 1000 ? 200 : 0;
+  const tax = Number((0.18 * itemsPrice).toFixed(2));
   const totalAmount = itemsPrice + shippingCharges + tax;
 
   const handleNavigate = () =>
@@ -28,7 +35,7 @@ const ConfirmOrderScreen = () => {
     <View style={[defaultStyle, styles.container]}>
       <HeaderComponent back={true} />
       <CommonScreenHeading normalText={'Confirm'} boldText={'Order'} />
-      <ConfirmOrderScreenOrders />
+      <ConfirmOrderScreenOrders cartItems={cartItems} />
       <ConfirmOrderScreenPriceTag heading={'Subtotal'} value={itemsPrice} />
       <ConfirmOrderScreenPriceTag heading={'Tax'} value={tax} />
       <ConfirmOrderScreenPriceTag

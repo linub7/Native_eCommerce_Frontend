@@ -33,6 +33,7 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 20,
     borderBottomLeftRadius: 20,
     width: '100%',
+    paddingVertical: 5,
   },
 });
 

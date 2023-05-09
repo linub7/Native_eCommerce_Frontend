@@ -1,18 +1,19 @@
 import { ScrollView, StyleSheet, View } from 'react-native';
-import { cartItems } from '../../../screens/cart';
+
 import ConfirmOrderScreenOrderItem from './order-item';
 
-const ConfirmOrderScreenOrders = () => {
+const ConfirmOrderScreenOrders = ({ cartItems }) => {
   return (
     <View style={styles.container}>
       <ScrollView>
-        {cartItems.map((el, index) => (
+        {cartItems?.map((el, index) => (
           <ConfirmOrderScreenOrderItem
             key={index}
             image={el.image}
             name={el.name}
             amount={el.price}
             quantity={el.quantity}
+            product={el.product}
           />
         ))}
       </ScrollView>

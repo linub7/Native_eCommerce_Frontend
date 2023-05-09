@@ -4,15 +4,21 @@ import Toast from 'react-native-toast-message';
 import ProductDetailsScreenInfoButton from './qty-button';
 import { colors } from '../../../styles';
 import ProductDetailsScreenInfoAddToCartButton from './add-to-cart-button';
+import { useDispatch } from 'react-redux';
+import { addToCartAction } from '../../../store/slices/cartSlice';
 
 const ProductDetailsScreenInfo = ({
+  _id,
   name,
   description,
   quantity,
   price,
   setQuantity,
   stock,
+  image,
 }) => {
+  const dispatch = useDispatch();
+
   const handleIncreaseQty = () => {
     if (quantity >= stock) return;
     setQuantity((prev) => prev + 1);
@@ -28,6 +34,16 @@ const ProductDetailsScreenInfo = ({
         type: 'error',
         text1: 'Out of Stock',
       });
+    const item = {
+      product: _id,
+      name,
+      price,
+      image,
+      stock,
+      quantity,
+    };
+
+    dispatch(addToCartAction({ item }));
     Toast.show({ type: 'success', text1: 'Added to Cart' });
   };
 

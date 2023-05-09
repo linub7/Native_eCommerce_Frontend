@@ -45,8 +45,8 @@ const HomeScreenProductCard = ({
 
 const styles = StyleSheet.create({
   container: {
-    elevation: 5,
-    width: 220,
+    elevation: 15,
+    width: 250,
     height: 400,
     alignItems: 'center',
     justifyContent: 'space-between',

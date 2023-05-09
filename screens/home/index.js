@@ -20,65 +20,6 @@ import { getAllProductsAction } from '../../store/slices/productSlice';
 import { getAllCategoriesHandler } from '../../api/category';
 import { getAllCategoriesAction } from '../../store/slices/categorySlice';
 
-// const categoriesArray = [
-//   'Nice',
-//   'Football',
-//   'Mens',
-//   'Helicopter',
-//   'Volleyball',
-// ];
-
-// export const productsArray = [
-//   {
-//     _id: 'bottle-lmmcalca',
-//     name: 'Bottle',
-//     price: 20,
-//     stock: 20,
-//     category: 'kklladadada',
-//     photos: [
-//       {
-//         url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQeS1J2KHiDCismfBDSncXO-wqLfddfz3VuPwi3nlav&s',
-//       },
-//     ],
-//   },
-//   {
-//     _id: 'camera-lamclamca',
-//     name: 'Camera',
-//     price: 2020,
-//     stock: 20,
-//     category: 'kklladadadacarra',
-//     images: [
-//       {
-//         url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZLN0_NvJuLGMVD_HxY2bQ4XgZEiQ4PeH38w715AYBPg&s',
-//       },
-//     ],
-//   },
-//   {
-//     _id: 'cream-kancacaal',
-//     name: 'Health-Cream',
-//     price: 120,
-//     stock: 20,
-//     category: 'kklladadad121231a',
-//     images: [
-//       {
-//         url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTq8uiBrVAT7UARXvDO9vmbWkLubt1igCNF3v2gvujQ&s',
-//       },
-//     ],
-//   },
-//   {
-//     _id: 'Watch-jhhhdakdahhdac',
-//     name: 'Watch',
-//     price: 3000,
-//     stock: 20,
-//     category: 'kklladadada75575',
-//     images: [
-//       {
-//         url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbD_PUwfdtYND0PnoTrWw4URh0YRdmzJ6bchohYpIm1w&s',
-//       },
-//     ],
-//   },
-// ];
-
 const HomeScreen = () => {
   const [category, setCategory] = useState('');
   const [activeSearch, setActiveSearch] = useState(false);
@@ -160,7 +101,7 @@ const HomeScreen = () => {
 
         <HomeScreenProducts products={products} />
       </View>
-      <Button title="Reset Loading" onPress={handleResetLoading} />
+      {/* <Button title="Reset Loading" onPress={handleResetLoading} /> */}
       {/* <CustomFooter activeRoute="home" /> */}
       {loading === false && <CustomFooter activeRoute="home" />}
     </>

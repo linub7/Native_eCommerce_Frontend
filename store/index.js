@@ -7,9 +7,10 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import loading from './slices/loadingSlice';
 import product from './slices/productSlice';
 import category from './slices/categorySlice';
+import cart from './slices/cartSlice';
 import auth from './slices/authSlice';
 
-const reducers = combineReducers({ loading, auth, product, category });
+const reducers = combineReducers({ loading, auth, product, category, cart });
 
 const config = {
   key: 'root',

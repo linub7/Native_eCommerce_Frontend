@@ -21,7 +21,7 @@ const ProductDetailsScreen = ({ route: { params } }) => {
 
   const { loading } = useSelector((state) => state.loading);
   const { product } = useSelector((state) => state.product);
-  console.log('product: ', product);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -70,6 +70,8 @@ const ProductDetailsScreen = ({ route: { params } }) => {
         quantity={quantity}
         setQuantity={setQuantity}
         stock={product?.stock}
+        _id={product?._id}
+        image={product?.photos[0]?.url}
       />
     </View>
   );

@@ -1,6 +1,21 @@
 import { Image, StyleSheet, Text, View } from 'react-native';
+import { useDispatch } from 'react-redux';
 
-const ConfirmOrderScreenOrderItem = ({ image, name, amount, quantity }) => {
+import { colors } from '../../../../styles';
+import CommonTouchableIcon from '../../../shared/touchable-icon';
+import { removeFromCartAction } from '../../../../store/slices/cartSlice';
+
+const ConfirmOrderScreenOrderItem = ({
+  image,
+  name,
+  amount,
+  quantity,
+  product,
+}) => {
+  const dispatch = useDispatch();
+
+  const handleRemoveItemFromCart = () =>
+    dispatch(removeFromCartAction({ product }));
   return (
     <View style={styles.container}>
       <Image source={{ uri: image }} style={styles.image} />
@@ -9,6 +24,12 @@ const ConfirmOrderScreenOrderItem = ({ image, name, amount, quantity }) => {
         <Text>{quantity}</Text>
         <Text style={styles.x}>x</Text>
         <Text>${amount}</Text>
+        <CommonTouchableIcon
+          icon={'delete'}
+          size={20}
+          iconStyle={styles.icon}
+          onPress={handleRemoveItemFromCart}
+        />
       </View>
     </View>
   );
@@ -32,6 +53,11 @@ const styles = StyleSheet.create({
   },
   x: {
     marginHorizontal: 10,
+  },
+  icon: {
+    backgroundColor: colors.color1,
+    marginLeft: 10,
+    alignSelf: 'center',
   },
 });
 

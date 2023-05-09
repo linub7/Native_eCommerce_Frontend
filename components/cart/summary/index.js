@@ -1,10 +1,10 @@
 import { StyleSheet, Text, View } from 'react-native';
 
-const CartScreenSummary = () => {
+const CartScreenSummary = ({ itemCount, itemPrice }) => {
   return (
     <View style={styles.rowContainer}>
-      <Text>5 Items</Text>
-      <Text>$5</Text>
+      <Text>{itemCount} item</Text>
+      <Text>${itemPrice}</Text>
     </View>
   );
 };

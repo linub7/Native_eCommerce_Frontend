@@ -1,104 +1,57 @@
 import { View, StyleSheet } from 'react-native';
 import { colors, defaultStyle } from '../../styles';
+import { useNavigation } from '@react-navigation/native';
+import { useDispatch, useSelector } from 'react-redux';
+import Toast from 'react-native-toast-message';
+
 import HeaderComponent from '../../components/shared/header';
 import CommonScreenHeading from '../../components/shared/heading';
-
 import CartScreenLayout from '../../components/cart/layout';
 import CartScreenSummary from '../../components/cart/summary';
 import CustomTouchableOpacity from '../../components/shared/custom-touchable-opacity';
-import { useNavigation } from '@react-navigation/native';
-
-export const cartItems = [
-  {
-    name: 'Macbook',
-    image:
-      'https://upload.wikimedia.org/wikipedia/commons/1/1e/MacBook_with_Retina_Display.png',
-    product: '2131ddsfs',
-    stock: 3,
-    price: 4999,
-    quantity: 2,
-  },
-  {
-    name: 'Shoes',
-    image:
-      'https://assets.ajio.com/medias/sys_master/root/20211111/51St/618d0e63f997ddf8f101de9c/-288Wx360H-460991629-clearblack-MODEL.jpg',
-    product: 'lcj-21221',
-    stock: 5,
-    price: 299,
-    quantity: 4,
-  },
-  {
-    name: 'Shoes',
-    image:
-      'https://assets.ajio.com/medias/sys_master/root/20211111/51St/618d0e63f997ddf8f101de9c/-288Wx360H-460991629-clearblack-MODEL.jpg',
-    product: 'lcj-2122eewe1',
-    stock: 5,
-    price: 299,
-    quantity: 4,
-  },
-  {
-    name: 'Shoes',
-    image:
-      'https://assets.ajio.com/medias/sys_master/root/20211111/51St/618d0e63f997ddf8f101de9c/-288Wx360H-460991629-clearblack-MODEL.jpg',
-    product: 'lcj-2122rwrwfcx1',
-    stock: 5,
-    price: 299,
-    quantity: 4,
-  },
-  {
-    name: 'Shoes',
-    image:
-      'https://assets.ajio.com/medias/sys_master/root/20211111/51St/618d0e63f997ddf8f101de9c/-288Wx360H-460991629-clearblack-MODEL.jpg',
-    product: 'lcj-21221vxx',
-    stock: 5,
-    price: 299,
-    quantity: 4,
-  },
-  {
-    name: 'Shoes',
-    image:
-      'https://assets.ajio.com/medias/sys_master/root/20211111/51St/618d0e63f997ddf8f101de9c/-288Wx360H-460991629-clearblack-MODEL.jpg',
-    product: 'lcj-21221voppda',
-    stock: 5,
-    price: 299,
-    quantity: 4,
-  },
-  {
-    name: 'Shoes',
-    image:
-      'https://assets.ajio.com/medias/sys_master/root/20211111/51St/618d0e63f997ddf8f101de9c/-288Wx360H-460991629-clearblack-MODEL.jpg',
-    product: 'lcj-2122dsds1voppda',
-    stock: 5,
-    price: 299,
-    quantity: 4,
-  },
-  {
-    name: 'Shoes',
-    image:
-      'https://assets.ajio.com/medias/sys_master/root/20211111/51St/618d0e63f997ddf8f101de9c/-288Wx360H-460991629-clearblack-MODEL.jpg',
-    product: 'lcj-2122dsddsdsqs1voppda',
-    stock: 5,
-    price: 299,
-    quantity: 4,
-  },
-  {
-    name: 'Shoes',
-    image:
-      'https://assets.ajio.com/medias/sys_master/root/20211111/51St/618d0e63f997ddf8f101de9c/-288Wx360H-460991629-clearblack-MODEL.jpg',
-    product: 'lcj-2122dsddsdsqs1vewewewoppda',
-    stock: 5,
-    price: 299,
-    quantity: 4,
-  },
-];
+import { addToCartAction } from '../../store/slices/cartSlice';
 
 const CartScreen = () => {
   const navigation = useNavigation();
-  const handleIncrease = (id, qty, stock) => {
-    console.log('increase', id, qty, stock);
+  const dispatch = useDispatch();
+
+  const { cartItems } = useSelector((state) => state.cart);
+
+  const itemsPrice = cartItems.reduce((a, b) => a + b.price * b.quantity, 0);
+
+  const handleIncrease = (id, name, price, image, stock, qty) => {
+    if (qty === stock)
+      return Toast.show({
+        type: 'error',
+        text1: 'OOPS! maximum value added 😎',
+      });
+    const element = cartItems.find((el) => el.product === id);
+    const item = {
+      product: id,
+      name,
+      price,
+      image,
+      stock,
+      quantity: element ? element.quantity + 1 : qty,
+    };
+    dispatch(addToCartAction({ item }));
   };
-  const handleDecrease = (id, qty) => {
-    console.log('decrease', id, qty);
+  const handleDecrease = (id, name, price, image, stock, qty) => {
+    if (qty === 1)
+      return Toast.show({
+        type: 'error',
+        text1: 'OOPS! minimum value is 1 😊',
+      });
+    const element = cartItems.find((el) => el.product === id);
+    const item = {
+      product: id,
+      name,
+      price,
+      image,
+      stock,
+      quantity: element ? element.quantity - 1 : qty,
+    };
+    dispatch(addToCartAction({ item }));
   };
 
   const handleCheckout = () => {
@@ -113,7 +66,7 @@ const CartScreen = () => {
         handleIncrease={handleIncrease}
         cartItems={cartItems}
       />
-      <CartScreenSummary />
+      <CartScreenSummary itemCount={cartItems?.length} itemPrice={itemsPrice} />
       <CustomTouchableOpacity
         btnTitle={'Checkout'}
         icon={'cart'}

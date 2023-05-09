@@ -14,6 +14,8 @@ const CartScreenLayoutCartItem = ({
   handleIncrease,
   handleDecrease,
   index,
+  price,
+  image,
 }) => {
   return (
     <View style={styles.container}>
@@ -21,8 +23,12 @@ const CartScreenLayoutCartItem = ({
       <CartScreenLayoutCartItemInfos amount={amount} name={name} id={id} />
       <CartScreenLayoutCartItemActions
         qty={qty}
-        handleDecrease={() => handleDecrease(id, qty)}
-        handleIncrease={() => handleIncrease(id, qty, stock)}
+        handleDecrease={() =>
+          handleDecrease(id, name, price, image, stock, qty)
+        }
+        handleIncrease={() =>
+          handleIncrease(id, name, price, image, stock, qty)
+        }
       />
     </View>
   );
