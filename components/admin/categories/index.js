@@ -1,11 +1,8 @@
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { ScrollView, StyleSheet } from 'react-native';
 import { colors } from '../../../styles';
 import AdminCategoriesScreenListItem from './item';
 
-const AdminCategoriesScreenList = ({ categories }) => {
-  const handleDeleteCategory = (id) => {
-    console.log('delete category', id);
-  };
+const AdminCategoriesScreenList = ({ categories, handleDeleteCategory }) => {
   return (
     <ScrollView style={styles.container}>
       {categories?.map((category, index) => (

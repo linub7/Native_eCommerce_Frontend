@@ -1,13 +1,8 @@
 import { ScrollView, StyleSheet, View } from 'react-native';
-import { products } from '../../../../screens/home';
+
 import AdminPanelScreenProductListItem from './item';
-import { useNavigation } from '@react-navigation/native';
-import DecisionModal from '../../../shared/modals/admin';
-import { useState } from 'react';
 
-const AdminPanelScreenProductList = () => {
-  const navigation = useNavigation();
-
+const AdminPanelScreenProductList = ({ products }) => {
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
       <View>
@@ -19,8 +14,12 @@ const AdminPanelScreenProductList = () => {
             price={prod?.price}
             stock={prod?.stock}
             name={prod?.name}
-            imgSrc={prod?.images[0].url}
-            category={prod?.category}
+            imgSrc={
+              prod?.photos[0]?.url !== undefined
+                ? prod?.photos[0].url
+                : 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1200px-No-Image-Placeholder.svg.png'
+            }
+            category={prod?.category?.name}
           />
         ))}
       </View>
