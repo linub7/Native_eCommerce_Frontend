@@ -10,7 +10,13 @@ import category from './slices/categorySlice';
 import cart from './slices/cartSlice';
 import auth from './slices/authSlice';
 
-const reducers = combineReducers({ loading, auth, product, category, cart });
+const reducers = combineReducers({
+  loading,
+  auth,
+  product,
+  category,
+  cart,
+});
 
 const config = {
   key: 'root',

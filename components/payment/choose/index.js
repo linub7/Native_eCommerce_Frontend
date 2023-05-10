@@ -11,12 +11,12 @@ const PaymentScreenChoose = ({ paymentMethod, onValueChange }) => {
         paymentMethod={paymentMethod}
         onValueChange={onValueChange}
       />
-      <PaymentScreenChooseRadioButton
+      {/* <PaymentScreenChooseRadioButton
         label={'ONLINE'}
         value={'ONLINE'}
         paymentMethod={paymentMethod}
         onValueChange={onValueChange}
-      />
+      /> */}
     </View>
   );
 };

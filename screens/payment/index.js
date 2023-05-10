@@ -1,20 +1,54 @@
 import { StyleSheet, View } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
+import { useState } from 'react';
+import Toast from 'react-native-toast-message';
+
 import { colors, defaultStyle } from '../../styles';
 import HeaderComponent from '../../components/shared/header';
 import CommonScreenHeading from '../../components/shared/heading';
 import PaymentScreenChoose from '../../components/payment/choose';
-import { useState } from 'react';
 import CustomTouchableOpacity from '../../components/shared/custom-touchable-opacity';
+import { loadingStatus } from '../../store/slices/loadingSlice';
+import { placeOrderHandler } from '../../api/order';
+import { clearCartAction } from '../../store/slices/cartSlice';
 
 const PaymentScreen = ({ navigation, route: { params } }) => {
   const [paymentMethod, setPaymentMethod] = useState('COD');
+  const dispatch = useDispatch();
+  console.log({ params });
 
-  const isAuthenticated = false;
+  const { token, userData } = useSelector((state) => state.auth);
+  const { cartItems } = useSelector((state) => state.cart);
+  console.log({ cartItems });
 
   const handleNavigateToLogin = () => navigation.navigate('login');
 
-  const handlePlaceOrder = () => {
-    console.log('place order');
+  const handlePlaceOrder = async () => {
+    dispatch(loadingStatus({ status: true }));
+    const orderItems = cartItems;
+    const taxPrice = params?.tax;
+    const shippingCharges = params?.shippingCharges;
+    const { err, data } = await placeOrderHandler(
+      orderItems,
+      taxPrice,
+      shippingCharges,
+      token
+    );
+    if (err) {
+      console.log(err);
+      dispatch(loadingStatus({ status: false }));
+      return Toast.show({
+        type: 'error',
+        text1: err,
+      });
+    }
+    dispatch(loadingStatus({ status: false }));
+    Toast.show({
+      type: 'success',
+      text1: 'Placed order successfully',
+    });
+    dispatch(clearCartAction());
+    navigation.navigate('home');
   };
 
   const handleOnlinePayment = () => {
@@ -37,7 +71,7 @@ const PaymentScreen = ({ navigation, route: { params } }) => {
           paymentMethod === 'COD' ? 'check-circle' : 'circle-multiple-outline'
         }
         onPress={
-          !isAuthenticated
+          !token
             ? handleNavigateToLogin
             : paymentMethod === 'COD'
             ? handlePlaceOrder
