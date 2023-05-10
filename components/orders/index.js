@@ -1,90 +1,12 @@
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { Headline } from 'react-native-paper';
 import OrdersScreenOrderListItem from './order-item';
+import { useSelector } from 'react-redux';
 
-const orders = [
-  {
-    _id: 'mcamclamccacaa',
-    shippingInfo: {
-      address: 'lmlcmalcacacma',
-      city: 'CA',
-      country: 'US',
-      pinCode: 212122111,
-    },
-    createdAt: '12-2-2023T2343',
-    orderStatus: 'Cancelled',
-    paymentMethod: 'COD',
-    totalAmount: 2000120,
-  },
-  {
-    _id: 'mcamadadclamca',
-    shippingInfo: {
-      address: 'lmdaadedlcmalcmdsdsdsa',
-      city: 'NY',
-      country: 'US',
-      pinCode: 1214542212121,
-    },
-    createdAt: '12-2-2021T2343',
-    orderStatus: 'Delivered',
-    paymentMethod: 'ONLINE',
-    totalAmount: 2005400,
-  },
-  {
-    _id: 'mcamadadclamcaqq1212',
-    shippingInfo: {
-      address: 'lmdaadedlcmalcmacacarreret',
-      city: 'NY',
-      country: 'US',
-      pinCode: 1214542212121,
-    },
-    createdAt: '12-2-2021T2343',
-    orderStatus: 'Delivered',
-    paymentMethod: 'ONLINE',
-    totalAmount: 2005400,
-  },
-  {
-    _id: 'mcamadadclamcacscsggrtr',
-    shippingInfo: {
-      address: 'lmdaadedlcmalcma',
-      city: 'NY',
-      country: 'US',
-      pinCode: 1214542212121,
-    },
-    createdAt: '12-2-2021T2343',
-    orderStatus: 'Delivered',
-    paymentMethod: 'ONLINE',
-    totalAmount: 2005400,
-  },
-  {
-    _id: 'mcamadadclamca98812',
-    shippingInfo: {
-      address: 'lmdaadedlcmalcma',
-      city: 'NY',
-      country: 'US',
-      pinCode: 1214542212121,
-    },
-    createdAt: '12-2-2021T2343',
-    orderStatus: 'Delivered',
-    paymentMethod: 'ONLINE',
-    totalAmount: 2005400,
-  },
-  {
-    _id: 'mcamadadclamca',
-    shippingInfo: {
-      address: 'lmdaadedlcmalcma',
-      city: 'NY',
-      country: 'US',
-      pinCode: 1214542212121,
-    },
-    createdAt: '12-2-2021T2343',
-    orderStatus: 'Delivered',
-    paymentMethod: 'ONLINE',
-    totalAmount: 2005400,
-  },
-];
 const loading = false;
 
-const OrdersScreenOrderList = () => {
+const OrdersScreenOrderList = ({ orders }) => {
+  const { userData } = useSelector((state) => state.auth);
   return (
     <View style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -101,6 +23,7 @@ const OrdersScreenOrderList = () => {
               totalAmount={order?.totalAmount}
               status={order?.orderStatus}
               index={index}
+              admin={userData?.role === 'admin' ? true : false}
             />
           ))
         ) : (

@@ -15,11 +15,9 @@ import { clearCartAction } from '../../store/slices/cartSlice';
 const PaymentScreen = ({ navigation, route: { params } }) => {
   const [paymentMethod, setPaymentMethod] = useState('COD');
   const dispatch = useDispatch();
-  console.log({ params });
 
-  const { token, userData } = useSelector((state) => state.auth);
+  const { token } = useSelector((state) => state.auth);
   const { cartItems } = useSelector((state) => state.cart);
-  console.log({ cartItems });
 
   const handleNavigateToLogin = () => navigation.navigate('login');
 

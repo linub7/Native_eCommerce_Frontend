@@ -2,9 +2,12 @@ import { StyleSheet, View } from 'react-native';
 import CustomTouchableOpacity from '../../../shared/custom-touchable-opacity';
 import { colors } from '../../../../styles';
 import { useNavigation } from '@react-navigation/native';
+import { useSelector } from 'react-redux';
 
 const ProfileScreenActionsLineOne = () => {
   const navigation = useNavigation();
+  const { userData } = useSelector((state) => state.auth);
+
   const handleNavigate = (path) => navigation.navigate(path);
   return (
     <View style={styles.rowContainer}>
@@ -18,15 +21,17 @@ const ProfileScreenActionsLineOne = () => {
         loading={false}
         onPress={() => handleNavigate('orders')}
       />
-      <CustomTouchableOpacity
-        touchStyle={styles.boxStyleSecondary}
-        icon={'view-dashboard'}
-        btnTitle={'Admin'}
-        textColor={colors.color2}
-        profile={true}
-        loading={false}
-        onPress={() => handleNavigate('admin-panel')}
-      />
+      {userData?.role === 'admin' && (
+        <CustomTouchableOpacity
+          touchStyle={styles.boxStyleSecondary}
+          icon={'view-dashboard'}
+          btnTitle={'Admin'}
+          textColor={colors.color2}
+          profile={true}
+          loading={false}
+          onPress={() => handleNavigate('admin-panel')}
+        />
+      )}
       <CustomTouchableOpacity
         touchStyle={styles.boxStylePrimary}
         icon={'pencil'}

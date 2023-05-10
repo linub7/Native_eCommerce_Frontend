@@ -11,7 +11,7 @@ const OrdersScreenOrderListItem = ({
   status,
   paymentMethod,
   handleUpdate,
-  admin = true,
+  admin = false,
   loading,
   index = 0,
 }) => {
