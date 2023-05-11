@@ -1,4 +1,4 @@
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import Toast from 'react-native-toast-message';
 import { useEffect, useState } from 'react';
