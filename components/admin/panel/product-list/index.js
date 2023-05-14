@@ -2,7 +2,7 @@ import { ScrollView, StyleSheet, View } from 'react-native';
 
 import AdminPanelScreenProductListItem from './item';
 
-const AdminPanelScreenProductList = ({ products }) => {
+const AdminPanelScreenProductList = ({ products, token }) => {
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
       <View>
@@ -20,6 +20,7 @@ const AdminPanelScreenProductList = ({ products }) => {
                 : 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1200px-No-Image-Placeholder.svg.png'
             }
             category={prod?.category?.name}
+            token={token}
           />
         ))}
       </View>

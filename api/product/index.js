@@ -34,6 +34,21 @@ export const getSingleProductHandler = async (productId) => {
   }
 };
 
+export const addProductHandler = async (values, token) => {
+  try {
+    const { data } = await client.post(`/products`, values, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+    return { data };
+  } catch (error) {
+    const { response } = error;
+    return { err: response?.data?.message };
+  }
+};
+
 export const updateProductInfoHandler = async (
   productId,
   name,
@@ -82,6 +97,18 @@ export const deleteProductImageHandler = async (productId, publicId, token) => {
       {},
       { headers: { Authorization: `Bearer ${token}` } }
     );
+    return { data };
+  } catch (error) {
+    const { response } = error;
+    return { err: response?.data?.message };
+  }
+};
+
+export const deleteProductHandler = async (productId, token) => {
+  try {
+    const { data } = await client.delete(`/products/${productId}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
     return { data };
   } catch (error) {
     const { response } = error;

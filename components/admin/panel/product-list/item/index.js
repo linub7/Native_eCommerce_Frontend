@@ -1,8 +1,14 @@
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { useEffect, useState } from 'react';
+import { useNavigation } from '@react-navigation/native';
+import { useDispatch } from 'react-redux';
+import Toast from 'react-native-toast-message';
+
 import { colors } from '../../../../../styles';
 import DecisionModal from '../../../../shared/modals/admin';
-import { useState } from 'react';
-import { useNavigation } from '@react-navigation/native';
+import { localLoadingStatus } from '../../../../../store/slices/loadingSlice';
+import { deleteProductHandler } from '../../../../../api/product';
+import { deleteProductAction } from '../../../../../store/slices/productSlice';
 
 const AdminPanelScreenProductListItem = ({
   index,
@@ -12,16 +18,34 @@ const AdminPanelScreenProductListItem = ({
   name,
   imgSrc,
   category,
+  token,
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const navigation = useNavigation();
+  const dispatch = useDispatch();
 
   const handleCloseModal = () => setIsModalOpen(false);
 
   const handleNavigate = (path) => navigation.navigate(path, { id: _id });
 
-  const handleDeleteProduct = () => {
-    console.log(`delete ${_id}`);
+  useEffect(() => {
+    return () => {
+      setIsModalOpen(false);
+    };
+  }, []);
+
+  const handleDeleteProduct = async () => {
+    dispatch(localLoadingStatus({ status: true }));
+    const { err, data } = await deleteProductHandler(_id, token);
+    if (err) {
+      console.log(err);
+      dispatch(localLoadingStatus({ status: false }));
+      return Toast.show({ type: 'error', text1: err });
+    }
+    dispatch(localLoadingStatus({ status: false }));
+    dispatch(deleteProductAction({ productId: _id }));
+    Toast.show({ type: 'success', text1: 'Product deleted successfully.' });
+    setIsModalOpen(false);
   };
   return (
     <>

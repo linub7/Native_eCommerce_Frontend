@@ -1,30 +1,39 @@
 import { StyleSheet, Text, View } from 'react-native';
+import mime from 'mime';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import Toast from 'react-native-toast-message';
+
 import { colors, defaultStyle } from '../../../../../styles';
 import HeaderComponent from '../../../../../components/shared/header';
 import CommonAuthHeading from '../../../../../components/auth/heading';
-import CustomLoader from '../../../../../components/shared/custom-loader';
 import AdminCreateProductScreenComponent from '../../../../../components/admin/products/create-product';
-import { useEffect, useState } from 'react';
 import CustomSelectComponent from '../../../../../components/shared/select';
+import { loadingStatus } from '../../../../../store/slices/loadingSlice';
+import { addProductHandler } from '../../../../../api/product';
+import { addProductAction } from '../../../../../store/slices/productSlice';
 
-const loading = false;
 const AdminCreateProductScreen = ({ navigation, route: { params } }) => {
   const [name, setName] = useState('');
   const [image, setImage] = useState('');
   const [description, setDescription] = useState('');
   const [price, setPrice] = useState('');
   const [stock, setStock] = useState('');
-  const [category, setCategory] = useState('Sport');
   const [categoryId, setCategoryId] = useState('');
-  const [categories, setCategories] = useState([
-    {
-      category: 'Laptop',
-      _id: 'amclamcla',
-    },
-    { category: 'Sport', _id: 'mlmcalmcajt' },
-    { category: 'Clothes', _id: 'mlmcacarcalmcajt' },
-  ]);
+  const [categories, setCategories] = useState([]);
+  const [category, setCategory] = useState('Please select a category');
   const [isVisible, setIsVisible] = useState(false);
+
+  const { categories: categoriesArray } = useSelector(
+    (state) => state.category
+  );
+  const { loading } = useSelector((state) => state.loading);
+  const { token } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    setCategories(categoriesArray);
+  }, []);
 
   useEffect(() => {
     if (params?.image) setImage(params?.image);
@@ -37,13 +46,45 @@ const AdminCreateProductScreen = ({ navigation, route: { params } }) => {
     navigation.navigate('camera', { newProduct: true });
 
   const handleSelectCategory = (cat) => {
-    console.log(cat);
-    setCategory(cat?.category);
+    setCategory(cat?.name);
     setCategoryId(cat?._id);
     setIsVisible(false);
   };
 
-  const handleCreateProduct = () => {};
+  const handleCreateProduct = async () => {
+    if (categoryId === '')
+      return Toast.show({ type: 'error', text1: 'Please select a category' });
+    dispatch(loadingStatus({ status: true }));
+
+    let formData = new FormData();
+    formData.append('name', name);
+    formData.append('description', description);
+    formData.append('price', price);
+    formData.append('stock', stock);
+    formData.append('category', categoryId);
+    formData.append('photos', {
+      uri: image,
+      type: mime.getType(image),
+      name: image?.split('/').pop(),
+    });
+
+    const { err, data } = await addProductHandler(formData, token);
+    if (err) {
+      console.log(err);
+      dispatch(loadingStatus({ status: false }));
+      return Toast.show({
+        type: 'error',
+        text1: err,
+      });
+    }
+    dispatch(loadingStatus({ status: false }));
+    dispatch(addProductAction({ product: data?.data?.data }));
+    Toast.show({
+      type: 'success',
+      text1: 'Product created successfully.',
+    });
+    navigation.navigate('admin-panel');
+  };
   return (
     <>
       <View style={[defaultStyle, styles.container]}>
@@ -51,27 +92,23 @@ const AdminCreateProductScreen = ({ navigation, route: { params } }) => {
         <View style={styles.innerContainer}>
           <CommonAuthHeading heading={'Create Product'} />
         </View>
-        {loading ? (
-          <View style={{ justifyContent: 'center', marginTop: 100 }}>
-            <CustomLoader size={100} color={colors.color3} />
-          </View>
-        ) : (
-          <AdminCreateProductScreenComponent
-            name={name}
-            setName={setName}
-            description={description}
-            setDescription={setDescription}
-            price={price}
-            setPrice={setPrice}
-            stock={stock}
-            setStock={setStock}
-            category={category}
-            handleVisible={handleVisible}
-            handleNavigateToCamera={handleNavigateToCamera}
-            handleCreateProduct={handleCreateProduct}
-            image={image}
-          />
-        )}
+
+        <AdminCreateProductScreenComponent
+          name={name}
+          setName={setName}
+          description={description}
+          setDescription={setDescription}
+          price={price}
+          setPrice={setPrice}
+          stock={stock}
+          setStock={setStock}
+          category={category}
+          handleVisible={handleVisible}
+          handleNavigateToCamera={handleNavigateToCamera}
+          handleCreateProduct={handleCreateProduct}
+          image={image}
+          loading={loading}
+        />
       </View>
       {isVisible && (
         <CustomSelectComponent
@@ -84,7 +121,7 @@ const AdminCreateProductScreen = ({ navigation, route: { params } }) => {
               style={styles.selectText}
               key={index}
             >
-              {cat?.category}
+              {cat?.name}
             </Text>
           ))}
         </CustomSelectComponent>

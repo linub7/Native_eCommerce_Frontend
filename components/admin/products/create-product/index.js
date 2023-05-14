@@ -4,8 +4,6 @@ import CommonAuthInput from '../../../auth/input';
 import { colors, inputStyling } from '../../../../styles';
 import CommonTouchableIcon from '../../../shared/touchable-icon';
 
-const loading = false;
-
 const AdminCreateProductScreenComponent = ({
   name,
   setName,
@@ -20,8 +18,8 @@ const AdminCreateProductScreenComponent = ({
   handleCreateProduct,
   image,
   handleNavigateToCamera,
+  loading,
 }) => {
-  console.log(category);
   return (
     <ScrollView style={styles.scroll}>
       <View style={styles.container}>
@@ -73,7 +71,7 @@ const AdminCreateProductScreenComponent = ({
           style={styles.btn}
           onPress={handleCreateProduct}
           loading={loading}
-          disabled={loading}
+          disabled={loading || !name || !description || !stock || !price}
         >
           Create Product
         </Button>

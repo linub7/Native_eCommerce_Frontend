@@ -17,7 +17,7 @@ import { getAllAdminProductsAction } from '../../../store/slices/productSlice';
 
 const AdminPanelScreen = () => {
   const dispatch = useDispatch();
-  const { loading } = useSelector((state) => state.loading);
+  const { loading, localLoading } = useSelector((state) => state.loading);
   const { token } = useSelector((state) => state.auth);
   const { products, inStock, outOfStock } = useSelector(
     (state) => state.product
@@ -63,9 +63,16 @@ const AdminPanelScreen = () => {
           <View style={styles.chart}>
             <AdminPanelScreenChart inStock={inStock} outOfStock={outOfStock} />
           </View>
-          <AdminPanelScreenActions />
-          <AdminPanelScreenProductListHeading />
-          <AdminPanelScreenProductList products={products} />
+
+          {localLoading ? (
+            <CustomLoader size={50} color={colors.color3} />
+          ) : (
+            <>
+              <AdminPanelScreenActions />
+              <AdminPanelScreenProductListHeading />
+              <AdminPanelScreenProductList products={products} token={token} />
+            </>
+          )}
         </>
       )}
     </View>

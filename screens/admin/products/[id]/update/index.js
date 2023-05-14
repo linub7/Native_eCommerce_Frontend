@@ -91,7 +91,6 @@ const AdminUpdateProductScreen = ({
   const handleNavigate = () => navigation.navigate('product-images');
 
   const handleSelectCategory = (cat) => {
-    console.log(cat);
     setCategory(cat?.name);
     setCategoryId(cat?._id);
     setIsVisible(false);
