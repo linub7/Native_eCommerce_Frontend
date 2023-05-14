@@ -2,7 +2,11 @@ import { ScrollView, StyleSheet, View } from 'react-native';
 import { colors } from '../../../../styles';
 import AdminProductImagesScreenListItem from './item';
 
-const AdminProductImagesScreenList = ({ imgs, handleDeleteImage }) => {
+const AdminProductImagesScreenList = ({
+  imgs,
+  handleDeleteImage,
+  localLoading,
+}) => {
   return (
     <ScrollView style={styles.scroll}>
       <View style={styles.container}>
@@ -10,8 +14,9 @@ const AdminProductImagesScreenList = ({ imgs, handleDeleteImage }) => {
           <AdminProductImagesScreenListItem
             key={index}
             src={el.url}
-            _id={el._id}
+            _id={el.public_id}
             handleDeleteImage={handleDeleteImage}
+            localLoading={localLoading}
           />
         ))}
       </View>

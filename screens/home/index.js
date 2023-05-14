@@ -2,6 +2,7 @@ import { StyleSheet, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
 import Toast from 'react-native-toast-message';
+import { Button } from 'react-native';
 
 import { defaultStyle } from '../../styles';
 import HeaderComponent from '../../components/shared/header';
@@ -101,7 +102,7 @@ const HomeScreen = () => {
 
         <HomeScreenProducts products={products} />
       </View>
-      {/* <Button title="Reset Loading" onPress={handleResetLoading} /> */}
+      <Button title="Reset Loading" onPress={handleResetLoading} />
       {/* <CustomFooter activeRoute="home" /> */}
       {loading === false && <CustomFooter activeRoute="home" />}
     </>

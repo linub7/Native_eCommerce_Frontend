@@ -18,7 +18,7 @@ const AdminPanelScreenProductListItem = ({
 
   const handleCloseModal = () => setIsModalOpen(false);
 
-  const handleNavigate = (path) => navigation.navigate(path, { _id });
+  const handleNavigate = (path) => navigation.navigate(path, { id: _id });
 
   const handleDeleteProduct = () => {
     console.log(`delete ${_id}`);

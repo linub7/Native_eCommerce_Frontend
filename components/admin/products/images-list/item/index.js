@@ -1,17 +1,26 @@
-import { Image, StyleSheet, View } from 'react-native';
+import { Image, StyleSheet, View, ActivityIndicator } from 'react-native';
 import { colors } from '../../../../../styles';
 import CommonTouchableIcon from '../../../../shared/touchable-icon';
 
-const AdminProductImagesScreenListItem = ({ handleDeleteImage, src, _id }) => {
+const AdminProductImagesScreenListItem = ({
+  handleDeleteImage,
+  src,
+  _id,
+  localLoading = false,
+}) => {
   return (
     <View style={styles.container}>
       <Image source={{ uri: src }} style={styles.image} />
-      <CommonTouchableIcon
-        icon={'delete'}
-        size={30}
-        iconStyle={styles.iconStyle}
-        onPress={() => handleDeleteImage(_id)}
-      />
+      {localLoading ? (
+        <ActivityIndicator size="large" />
+      ) : (
+        <CommonTouchableIcon
+          icon={'delete'}
+          size={30}
+          iconStyle={styles.iconStyle}
+          onPress={() => handleDeleteImage(_id)}
+        />
+      )}
     </View>
   );
 };

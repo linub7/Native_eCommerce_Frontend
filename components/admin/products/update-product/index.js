@@ -3,8 +3,6 @@ import { Button } from 'react-native-paper';
 import { colors, inputStyling } from '../../../../styles';
 import CommonAuthInput from '../../../auth/input';
 
-const loading = false;
-
 const AdminUpdateProductScreenComponent = ({
   name,
   setName,
@@ -18,6 +16,7 @@ const AdminUpdateProductScreenComponent = ({
   handleVisible,
   handleNavigate,
   handleUpdateProduct,
+  loading,
 }) => {
   return (
     <ScrollView style={styles.scroll}>

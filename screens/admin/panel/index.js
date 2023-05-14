@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { StyleSheet, View } from 'react-native';
 import Toast from 'react-native-toast-message';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 import { colors, defaultStyle } from '../../../styles';
 import HeaderComponent from '../../../components/shared/header';
@@ -13,19 +13,20 @@ import AdminPanelScreenProductList from '../../../components/admin/panel/product
 import AdminPanelScreenChart from '../../../components/admin/panel/chart';
 import { loadingStatus } from '../../../store/slices/loadingSlice';
 import { getAllAdminProductsHandler } from '../../../api/product';
+import { getAllAdminProductsAction } from '../../../store/slices/productSlice';
 
 const AdminPanelScreen = () => {
-  const [adminInfos, setAdminInfos] = useState({});
   const dispatch = useDispatch();
   const { loading } = useSelector((state) => state.loading);
   const { token } = useSelector((state) => state.auth);
+  const { products, inStock, outOfStock } = useSelector(
+    (state) => state.product
+  );
 
   useEffect(() => {
     handleGetAllAdminProducts();
 
-    return () => {
-      setAdminInfos({});
-    };
+    return () => {};
   }, []);
 
   const handleGetAllAdminProducts = async () => {
@@ -40,8 +41,15 @@ const AdminPanelScreen = () => {
       });
     }
     dispatch(loadingStatus({ status: false }));
-    setAdminInfos(data?.data?.data);
+    dispatch(
+      getAllAdminProductsAction({
+        products: data?.data?.data?.products,
+        inStock: data?.data?.data?.inStock,
+        outOfStock: data?.data?.data?.outOfStock,
+      })
+    );
   };
+
   return (
     <View style={defaultStyle}>
       <HeaderComponent back={true} />
@@ -53,14 +61,11 @@ const AdminPanelScreen = () => {
       ) : (
         <>
           <View style={styles.chart}>
-            <AdminPanelScreenChart
-              inStock={adminInfos?.inStock}
-              outOfStock={adminInfos?.outOfStock}
-            />
+            <AdminPanelScreenChart inStock={inStock} outOfStock={outOfStock} />
           </View>
           <AdminPanelScreenActions />
           <AdminPanelScreenProductListHeading />
-          <AdminPanelScreenProductList products={adminInfos?.products} />
+          <AdminPanelScreenProductList products={products} />
         </>
       )}
     </View>
