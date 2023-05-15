@@ -2,6 +2,7 @@ import { StyleSheet } from 'react-native';
 import { Provider } from 'react-redux';
 import { persistStore } from 'redux-persist';
 import { PersistGate } from 'redux-persist/integration/react';
+
 import Main from './main';
 import store from './store';
 

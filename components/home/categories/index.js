@@ -1,9 +1,8 @@
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import { View, StyleSheet, ScrollView } from 'react-native';
 import HomeScreenCategoriesButton from './button';
 import { colors } from '../../../styles';
 
 const HomeScreenCategories = ({ categoriesArray, setCategory, category }) => {
-  //TODO: setCategory changes with _id
   const handlePress = (el) => setCategory(el);
   return (
     <View style={styles.container}>

@@ -1,7 +1,8 @@
 import { StyleSheet, View } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+
 import CustomTouchableOpacity from '../../../shared/custom-touchable-opacity';
 import { colors } from '../../../../styles';
-import { useNavigation } from '@react-navigation/native';
 
 const AdminPanelScreenActions = () => {
   const navigation = useNavigation();

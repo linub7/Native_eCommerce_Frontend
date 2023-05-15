@@ -1,6 +1,7 @@
 import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
-import { colors } from '../../../../styles';
 import { Headline } from 'react-native-paper';
+
+import { colors } from '../../../../styles';
 
 const CustomSearchItem = ({ imgSrc, price, name, onHandle }) => {
   return (

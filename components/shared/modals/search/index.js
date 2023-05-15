@@ -1,7 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
 import {
   View,
-  Text,
   StyleSheet,
   Platform,
   StatusBar,
@@ -10,10 +9,11 @@ import {
   BackHandler,
 } from 'react-native';
 import { useIsFocused } from '@react-navigation/native';
-import { colors } from '../../../../styles';
 import { Searchbar } from 'react-native-paper';
-import CustomSearchItem from '../../../home/search/item';
 import { useEffect, useState } from 'react';
+
+import { colors } from '../../../../styles';
+import CustomSearchItem from '../../../home/search/item';
 
 const CustomSearchModal = ({
   searchTerm = '',

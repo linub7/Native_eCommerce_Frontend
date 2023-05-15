@@ -1,9 +1,9 @@
 import { View, StyleSheet } from 'react-native';
-import { colors, defaultStyle } from '../../styles';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
 import Toast from 'react-native-toast-message';
 
+import { colors, defaultStyle } from '../../styles';
 import HeaderComponent from '../../components/shared/header';
 import CommonScreenHeading from '../../components/shared/heading';
 import CartScreenLayout from '../../components/cart/layout';

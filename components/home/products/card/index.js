@@ -1,7 +1,7 @@
 import { useNavigation } from '@react-navigation/native';
 import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
+
 import { colors } from '../../../../styles';
-import { Button } from 'react-native-paper';
 import HomeScreenProductCardHeader from './header';
 import HomeScreenProductCardFooter from './footer';
 

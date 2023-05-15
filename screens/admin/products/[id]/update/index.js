@@ -14,30 +14,8 @@ import {
   resetUpdateAbleProductAction,
   updateProductAction,
 } from '../../../../../store/slices/productSlice';
-import {
-  loadingStatus,
-  localLoadingStatus,
-} from '../../../../../store/slices/loadingSlice';
+import { localLoadingStatus } from '../../../../../store/slices/loadingSlice';
 import { updateProductInfoHandler } from '../../../../../api/product';
-
-// const images = [
-//   {
-//     _id: 'ncnakncakncaknckanckanc',
-//     url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQeS1J2KHiDCismfBDSncXO-wqLfddfz3VuPwi3nlav&s',
-//   },
-//   {
-//     _id: 'ncnakncakncaknckanckanaccacac',
-//     url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZLN0_NvJuLGMVD_HxY2bQ4XgZEiQ4PeH38w715AYBPg&s',
-//   },
-//   {
-//     _id: 'ncnakncakncaknckanckancewesdswewrsfddgw',
-//     url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTq8uiBrVAT7UARXvDO9vmbWkLubt1igCNF3v2gvujQ&s',
-//   },
-//   {
-//     _id: 'ncnakncakncaknckanckancewesdswewrsfddgwqgwgybyy',
-//     url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbD_PUwfdtYND0PnoTrWw4URh0YRdmzJ6bchohYpIm1w&s',
-//   },
-// ];
 
 const AdminUpdateProductScreen = ({
   route: {

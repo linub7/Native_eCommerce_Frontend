@@ -2,7 +2,7 @@ import { ScrollView, StyleSheet, View } from 'react-native';
 import { useEffect, useState } from 'react';
 import Toast from 'react-native-toast-message';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useIsFocused } from '@react-navigation/native';
+import { useDispatch, useSelector } from 'react-redux';
 
 import CommonAuthHeading from '../../../components/auth/heading';
 import { colors, defaultStyle } from '../../../styles';
@@ -10,7 +10,6 @@ import CommonAuthLayout from '../../../components/auth/layout';
 import CommonAuthInput from '../../../components/auth/input';
 import CommonAuthButton from '../../../components/auth/btn';
 import HeaderComponent from '../../../components/shared/header';
-import { useDispatch, useSelector } from 'react-redux';
 import {
   loadingStatus,
   localLoadingStatus,

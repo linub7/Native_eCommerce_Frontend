@@ -1,7 +1,8 @@
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { ScrollView, StyleSheet, View } from 'react-native';
 import { Headline } from 'react-native-paper';
-import OrdersScreenOrderListItem from './order-item';
 import { useSelector } from 'react-redux';
+
+import OrdersScreenOrderListItem from './order-item';
 
 const loading = false;
 

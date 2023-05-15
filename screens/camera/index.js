@@ -1,8 +1,9 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { Camera, CameraType } from 'expo-camera';
 import { useEffect, useState } from 'react';
-import CameraScreenActions from '../../components/camera/actions';
 import * as ImagePicker from 'expo-image-picker';
+
+import CameraScreenActions from '../../components/camera/actions';
 import OopsComponent from '../../components/shared/oops';
 
 const CameraScreen = ({ navigation, route: { params } }) => {

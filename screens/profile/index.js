@@ -2,10 +2,11 @@ import { View, StyleSheet } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import Toast from 'react-native-toast-message';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import mime from 'mime';
+import { useEffect, useState } from 'react';
 
 import { colors, defaultStyle } from '../../styles';
 import CommonAuthHeading from '../../components/auth/heading';
-import { useEffect, useState } from 'react';
 import ProfileScreenChangeAvatar from '../../components/profile/change-avatar';
 import ProfileScreenUserInfoText from '../../components/profile/user-info-text';
 import ProfileScreenActions from '../../components/profile/actions';
@@ -13,7 +14,6 @@ import CustomFooter from '../../components/shared/footer';
 import CustomLoader from '../../components/shared/custom-loader';
 import { loadingStatus } from '../../store/slices/loadingSlice';
 import { updateProfileHandler } from '../../api/auth';
-import mime from 'mime';
 import { authenticate } from '../../store/slices/authSlice';
 
 const ProfileScreen = ({ navigation, route: { params } }) => {

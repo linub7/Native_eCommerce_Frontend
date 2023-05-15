@@ -69,13 +69,21 @@ export const getUserSingleOrderHandler = async (orderId, token) => {
   }
 };
 
-export const updateUserSingleOrderHandler = async (orderId, token) => {
+export const updateUserOrderStatusHandler = async (
+  orderId,
+  orderStatus,
+  token
+) => {
   try {
-    const { data } = await client.patch(`/orders/${orderId}`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const { data } = await client.patch(
+      `/orders/${orderId}`,
+      { orderStatus },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
     return { data };
   } catch (error) {
     const { response } = error;

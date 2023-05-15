@@ -1,7 +1,8 @@
 import { Image, StyleSheet, View } from 'react-native';
+import { Button } from 'react-native-paper';
+
 import CommonTouchableIcon from '../../../../shared/touchable-icon';
 import { colors } from '../../../../../styles';
-import { Button } from 'react-native-paper';
 
 const AdminProductImagesScreenImageBox = ({
   image,

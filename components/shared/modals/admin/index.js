@@ -1,6 +1,7 @@
 import { StyleSheet, Text, View } from 'react-native';
-import { colors } from '../../../../styles';
 import { Button } from 'react-native-paper';
+
+import { colors } from '../../../../styles';
 import CommonTouchableIcon from '../../touchable-icon';
 
 const AdminModal = ({ handleCloseModal, handleUpdate, handleDelete }) => {

@@ -1,9 +1,20 @@
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
-import CommonTouchableIcon from '../touchable-icon';
-import { colors } from '../../../styles';
 import { Headline } from 'react-native-paper';
 
-const CustomSelectComponent = ({ handleClose, headline, children }) => {
+import CommonTouchableIcon from '../touchable-icon';
+import { colors } from '../../../styles';
+import CommonAuthButton from '../../auth/btn';
+
+const CustomSelectComponent = ({
+  handleClose,
+  headline,
+  children,
+  isVisibleButton = false,
+  btnTitle = '',
+  disabled = false,
+  onPress = () => {},
+  loading = false,
+}) => {
   return (
     <View style={styles.container}>
       <CommonTouchableIcon
@@ -14,6 +25,15 @@ const CustomSelectComponent = ({ handleClose, headline, children }) => {
       />
       <Headline style={styles.heading}>{headline}</Headline>
       <ScrollView>{children}</ScrollView>
+      {isVisibleButton && (
+        <CommonAuthButton
+          loading={loading}
+          btnTitle={btnTitle}
+          disabled={disabled}
+          onPress={onPress}
+          textColor={colors.color2}
+        />
+      )}
     </View>
   );
 };

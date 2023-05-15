@@ -1,6 +1,7 @@
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { colors } from '../../../../../styles';
 import { Button } from 'react-native-paper';
+
+import { colors } from '../../../../../styles';
 
 const HomeScreenProductCardFooter = ({
   index,

@@ -1,6 +1,7 @@
 import { useNavigation, useRoute } from '@react-navigation/native';
-import CustomHeaderTouchableOpacity from './customHeaderTouchableOpacity';
 import { useDispatch } from 'react-redux';
+
+import CustomHeaderTouchableOpacity from './customHeaderTouchableOpacity';
 import { clearCartAction } from '../../../store/slices/cartSlice';
 
 const HeaderComponent = ({ back = false, emptyCart = false }) => {

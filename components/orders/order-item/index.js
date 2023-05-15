@@ -1,7 +1,8 @@
 import { StyleSheet, Text, View } from 'react-native';
+import { Button } from 'react-native-paper';
+
 import { colors } from '../../../styles';
 import OrdersScreenOrderListItemTextBox from './text-box';
-import { Button } from 'react-native-paper';
 
 const OrdersScreenOrderListItem = ({
   _id,

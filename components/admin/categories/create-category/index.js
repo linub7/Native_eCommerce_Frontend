@@ -1,7 +1,8 @@
 import { StyleSheet, Text, View } from 'react-native';
+import { Button } from 'react-native-paper';
+
 import CommonAuthInput from '../../../auth/input';
 import { colors } from '../../../../styles';
-import { Button } from 'react-native-paper';
 
 const AdminCategoriesScreenCreateCategory = ({
   setCategory,

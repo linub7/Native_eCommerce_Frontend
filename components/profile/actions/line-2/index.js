@@ -2,10 +2,10 @@ import { StyleSheet, View } from 'react-native';
 import Toast from 'react-native-toast-message';
 import { useDispatch, useSelector } from 'react-redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useNavigation } from '@react-navigation/native';
 
 import CustomTouchableOpacity from '../../../shared/custom-touchable-opacity';
 import { colors } from '../../../../styles';
-import { useNavigation } from '@react-navigation/native';
 import { signoutHandler } from '../../../../api/auth';
 import { loadingStatus } from '../../../../store/slices/loadingSlice';
 import { authenticate } from '../../../../store/slices/authSlice';

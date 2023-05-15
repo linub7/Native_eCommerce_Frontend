@@ -1,6 +1,7 @@
 import { StyleSheet, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
 
 import { colors, defaultStyle } from '../../styles';
 import HeaderComponent from '../../components/shared/header';
@@ -8,7 +9,6 @@ import CommonScreenHeading from '../../components/shared/heading';
 import ConfirmOrderScreenOrders from '../../components/confirm-order/orders';
 import ConfirmOrderScreenPriceTag from '../../components/confirm-order/price-tag';
 import CustomTouchableOpacity from '../../components/shared/custom-touchable-opacity';
-import { useEffect } from 'react';
 
 const ConfirmOrderScreen = () => {
   const navigation = useNavigation();

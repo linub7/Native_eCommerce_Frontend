@@ -1,8 +1,9 @@
 import { useNavigation } from '@react-navigation/native';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
+import { useSelector } from 'react-redux';
+
 import { colors } from '../../../styles';
 import FooterCustomTouchableOpacity from './custom-touchable-opacity';
-import { useSelector } from 'react-redux';
 
 const CustomFooter = ({ activeRoute = 'home' }) => {
   const navigation = useNavigation();

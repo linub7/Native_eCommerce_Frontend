@@ -2,6 +2,7 @@ import { ScrollView, StyleSheet, View } from 'react-native';
 import { useState } from 'react';
 import Toast from 'react-native-toast-message';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { colors, defaultStyle } from '../../../styles';
 import CommonAuthHeading from '../../../components/auth/heading';
@@ -11,7 +12,6 @@ import CommonAuthButton from '../../../components/auth/btn';
 import CommonAuthSeparator from '../../../components/auth/separator';
 import CommonAuthFooterLink from '../../../components/auth/footer-link';
 import CustomFooter from '../../../components/shared/footer';
-import { useDispatch, useSelector } from 'react-redux';
 import { signupHandler } from '../../../api/auth';
 import { loadingStatus } from '../../../store/slices/loadingSlice';
 import { authenticate } from '../../../store/slices/authSlice';

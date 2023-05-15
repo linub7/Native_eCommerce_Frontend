@@ -1,8 +1,9 @@
 import { StyleSheet, View } from 'react-native';
+import { useSelector } from 'react-redux';
+import { useNavigation } from '@react-navigation/native';
+
 import CustomTouchableOpacity from '../../../shared/custom-touchable-opacity';
 import { colors } from '../../../../styles';
-import { useNavigation } from '@react-navigation/native';
-import { useSelector } from 'react-redux';
 
 const ProfileScreenActionsLineOne = () => {
   const navigation = useNavigation();

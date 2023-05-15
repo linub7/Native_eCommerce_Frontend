@@ -1,10 +1,10 @@
 import { StyleSheet, Text, View } from 'react-native';
 import Toast from 'react-native-toast-message';
+import { useDispatch } from 'react-redux';
 
 import ProductDetailsScreenInfoButton from './qty-button';
 import { colors } from '../../../styles';
 import ProductDetailsScreenInfoAddToCartButton from './add-to-cart-button';
-import { useDispatch } from 'react-redux';
 import { addToCartAction } from '../../../store/slices/cartSlice';
 
 const ProductDetailsScreenInfo = ({
