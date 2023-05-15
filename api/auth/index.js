@@ -107,3 +107,32 @@ export const updateProfileHandler = async (values, token) => {
     return { err: response?.data?.message };
   }
 };
+
+export const forgotPasswordHandler = async (email) => {
+  try {
+    const { data } = await client.post(`/auth/forgot-password`, {
+      email,
+    });
+    return { data };
+  } catch (error) {
+    const { response } = error;
+    return { err: response?.data?.message };
+  }
+};
+
+export const resetPasswordHandler = async (
+  password,
+  passwordConfirm,
+  token
+) => {
+  try {
+    const { data } = await client.patch(`/auth/reset-password/${token}`, {
+      password,
+      passwordConfirm,
+    });
+    return { data };
+  } catch (error) {
+    const { response } = error;
+    return { err: response?.data?.message };
+  }
+};

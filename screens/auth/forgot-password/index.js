@@ -1,21 +1,35 @@
 import { StyleSheet, View } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
+import { useState } from 'react';
+import Toast from 'react-native-toast-message';
+
 import { colors, defaultStyle } from '../../../styles';
 import CommonAuthHeading from '../../../components/auth/heading';
 import CommonAuthLayout from '../../../components/auth/layout';
 import CommonAuthInput from '../../../components/auth/input';
-import { useState } from 'react';
 import CommonAuthButton from '../../../components/auth/btn';
 import CommonAuthFooterLink from '../../../components/auth/footer-link';
 import CommonAuthSeparator from '../../../components/auth/separator';
+import { loadingStatus } from '../../../store/slices/loadingSlice';
+import { forgotPasswordHandler } from '../../../api/auth';
 
 const ForgotPasswordScreen = ({ navigation }) => {
   const [email, setEmail] = useState('');
-  const loading = false;
+  const dispatch = useDispatch();
+  const { loading } = useSelector((state) => state.loading);
 
   const handleNavigateToLogin = () => navigation.navigate('login');
 
-  const handleSendResetToken = () => {
-    // temporary
+  const handleSendResetToken = async () => {
+    dispatch(loadingStatus({ status: true }));
+    const { err, data } = await forgotPasswordHandler(email);
+    if (err) {
+      console.log(err);
+      dispatch(loadingStatus({ status: false }));
+      return Toast.show({ type: 'error', text1: err });
+    }
+    dispatch(loadingStatus({ status: false }));
+    Toast.show({ type: 'success', text1: 'OTP sent. Please check your inbox' });
     navigation.navigate('verify');
   };
   return (
@@ -34,7 +48,7 @@ const ForgotPasswordScreen = ({ navigation }) => {
           <CommonAuthButton
             loading={loading}
             btnTitle={'Send OTP'}
-            disabled={email === ''}
+            disabled={email === '' || loading}
             onPress={handleSendResetToken}
             textColor={colors.color2}
           />
